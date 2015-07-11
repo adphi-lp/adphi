@@ -79,4 +79,11 @@ ActiveRecord::Schema.define(version: 20150915003913) do
 
   add_index "shortlogs", ["brother_id"], name: "index_shortlogs_on_brother_id", using: :btree
 
+  create_table "vouchers", force: true do |t|
+    t.integer  "brother_id"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
 end

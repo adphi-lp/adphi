@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   resources :balances, only: [:update] do
   end
 
+  resources :vouchers, only: [:index, :show, :new, :create, :edit, :update] do
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
