@@ -1,0 +1,10 @@
+<% if @errors %>
+  $('#line_items #errors').html("<%=j newline_format(@errors) %>");
+  $('#line_items #errors').show();
+<% else %>
+  $('#line_items').html("<%=j render 'vouchers/line_items.html.erb', voucher: @voucher %>");
+  $('#line_items #errors').hide();
+  $('input#line_item_title').val('');
+  $('input#line_item_title').focus();
+  $('input#line_item_amount').val(0);
+<% end %>

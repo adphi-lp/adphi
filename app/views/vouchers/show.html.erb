@@ -4,3 +4,24 @@
     <h3>Submitted by <%= link_to @voucher.brother.name, @voucher.brother %> on <%= friendly_date @voucher.created_at %></h3>
   </div>
 </div>
+
+<h4>Items</h4>
+
+<%= form_for [@voucher, @line_item], remote: true do |f| %>
+<div class="row collapse">
+  <%= f.hidden_field :voucher_id %>
+  <div class="small-6 columns">
+    <%= f.text_field :title, placeholder: 'Item name. ' %>
+  </div>
+  <div class="small-4 columns">
+    <%= f.text_field :amount, placeholder: 'Amount. ' %>
+  </div>
+  <div class="small-2 columns">
+    <%= f.submit "Add Item", class: 'button postfix' %>
+  </div>
+</div>
+<% end %>
+
+<div id="line_items">
+  <%= render 'line_items', voucher: @voucher %>
+</div>

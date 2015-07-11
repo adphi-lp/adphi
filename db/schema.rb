@@ -53,6 +53,14 @@ ActiveRecord::Schema.define(version: 20150915003913) do
 
   add_index "brothers", ["pledge_class_id"], name: "index_brothers_on_pledge_class_id", using: :btree
 
+  create_table "line_items", force: true do |t|
+    t.integer  "voucher_id"
+    t.string   "title"
+    t.decimal  "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "meetings", force: true do |t|
     t.integer  "creator_id"
     t.string   "name"
