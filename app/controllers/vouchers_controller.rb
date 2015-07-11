@@ -9,6 +9,8 @@ class VouchersController < ApplicationController
 
   def show
     @voucher = Voucher.find(params[:id])
+
+    @line_item = @voucher.line_items.new
   end
 
   def create

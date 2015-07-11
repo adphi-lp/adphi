@@ -1,6 +1,10 @@
 require 'resque/server'
 
 Rails.application.routes.draw do
+  get 'line_items/create'
+
+  get 'line_items/destroy'
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   # mount the resque
@@ -29,6 +33,7 @@ Rails.application.routes.draw do
   end
 
   resources :vouchers, only: [:index, :show, :new, :create, :edit, :update] do
+    resources :line_items, only: [:destroy, :create]
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
