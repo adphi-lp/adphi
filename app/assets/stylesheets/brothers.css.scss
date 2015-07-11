@@ -5,14 +5,6 @@
 $hover-background-color: #eee;
 
 #brothers_show {
-  #title {
-    // padding: 5px 20px;
-
-    &:hover {
-      background-color: $hover-background-color;
-    }
-  }
-
   #entries {
     margin-top: 20px;
 
@@ -21,19 +13,6 @@ $hover-background-color: #eee;
       // font-family: 'Lora', serif;
       margin: 0;
     }
-  }
-
-  h2, h3 {
-    text-align: left;
-    // font-family: 'Lora', serif;
-  }
-
-  h3 {
-    margin-top: -10px;
-    text-align: left;
-    color: grey;
-    font-size: 20px;
-    margin-bottom: 10px;
   }
 }
 

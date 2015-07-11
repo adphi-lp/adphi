@@ -1,0 +1,6 @@
+<div class="row headerblock">
+  <div class="small-12 columns">
+    <h2><%= @voucher.title %></h2>
+    <h3>Submitted by <%= link_to @voucher.brother.name, @voucher.brother %> on <%= friendly_date @voucher.created_at %></h3>
+  </div>
+</div>

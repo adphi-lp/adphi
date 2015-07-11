@@ -38,6 +38,9 @@ class Ability
       can :destroy, Meeting, creator_id: brother.id
       can :record, Meeting, creator_id: brother.id
 
+      can :read, Voucher
+      can :create, Voucher
+
       if brother.kitchen_manager?
         can :update, Balance, kind: "kitchen"
       end
