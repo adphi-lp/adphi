@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
   resources :vouchers, only: [:index, :show, :new, :create, :edit, :update] do
     resources :line_items, only: [:destroy, :create]
+    resources :receipts, only: [:destroy, :create]
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

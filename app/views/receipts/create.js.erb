@@ -1,0 +1,10 @@
+<% if @errors %>
+  $('#receipts #errors').html("<%=j newline_format(@errors) %>");
+  $('#receipts #errors').show();
+<% else %>
+  $('#receipts').html("<%=j render('vouchers/receipts.html.erb', voucher: @voucher).to_str %>");
+  $('#receipts #errors').hide();
+  $.prepareEmbeddedFileFields();
+  $('input#receipt_content').val('');
+  $('input#receipt_content').change();
+<% end %>

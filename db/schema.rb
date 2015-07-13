@@ -77,6 +77,16 @@ ActiveRecord::Schema.define(version: 20150915003913) do
     t.datetime "updated_at"
   end
 
+  create_table "receipts", force: true do |t|
+    t.integer  "voucher_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "content_file_name"
+    t.string   "content_content_type"
+    t.integer  "content_file_size"
+    t.datetime "content_updated_at"
+  end
+
   create_table "shortlogs", force: true do |t|
     t.integer  "log_type"
     t.text     "content"

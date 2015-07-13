@@ -4,25 +4,26 @@
 
 #vouchers_show {
   #line_items {
-    #errors {
-      display: none;
-    }
-
     span.amount {
       float: right;
-    }
-
-    a.remove {
-      margin-left: 10px;
-      display: none;
-    }
-
-    div:hover a.remove {
-      display: inline;
     }
 
     #total {
       margin-top: 15px;
     }
+  }
+
+  .section-errors {
+    display: none;
+  }
+
+  .remove, .open {
+    margin-left: 10px;
+    display: none;
+  }
+
+  div:hover > .remove,
+  div:hover > .open {
+    display: inline;
   }
 }

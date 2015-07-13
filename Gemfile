@@ -50,3 +50,10 @@ gem 'unicorn'
 
 gem 'cancan'
 gem 'rack-mini-profiler'
+
+# Paperclip
+gem 'paperclip'
+
+gem 'remotipart'
+
+gem 'aws-sdk-v1'

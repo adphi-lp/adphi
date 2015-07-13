@@ -1,0 +1,23 @@
+<div data-alert class="alert-box alert section-errors" id="errors">
+</div>
+
+<% receipts = voucher.receipts.select { |r| !r.new_record? } %>
+
+<% if receipts.empty? %>
+  <div class="row entry">
+    <div class="small-12 columns">
+      There are no receipts attached to this voucher yet.
+    </div>
+  </div>
+<% else %>
+  <% receipts.each do |r| %>
+    <% next if r.new_record? %>
+    <div class="row entry">
+      <div class="small-12 columns">
+        <%= File.basename(r.content_file_name) %>
+        <%= link_to 'open', r.content.url, class: 'open', target: '_blank' %>
+        <%= link_to 'remove', [voucher, r], method: :delete, class: 'remove', data: {remote: true, confirm: "Do you really wanna delete item \"#{r.content_file_name}\"?"}, class: 'remove' %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

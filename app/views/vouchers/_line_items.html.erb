@@ -1,20 +1,30 @@
-<div data-alert class="alert-box alert" id="errors">
+<div data-alert class="alert-box alert section-errors" id="errors">
 </div>
 
-<% voucher.line_items.each do |i| %>
-  <% next if i.new_record? %>
+<% line_items = voucher.line_items.select { |i| !i.new_record? } %>
+
+<% if line_items.empty? %>
   <div class="row entry">
     <div class="small-12 columns">
-      <%= i.title %>
-      <%= link_to 'remove', [voucher, i], method: :delete, data: {remote: true, confirm: "Do you really wanna delete item \"#{i.title}\"?"}, class: 'remove' %>
-      <span class="amount"><%= i.amount %> $</span>
+      There are no items added to this voucher yet.
+    </div>
+  </div>
+<% else %>
+  <% line_items.each do |i| %>
+    <% next if i.new_record? %>
+    <div class="row entry">
+      <div class="small-12 columns">
+        <%= i.title %>
+        <%= link_to 'remove', [voucher, i], method: :delete, class: 'remove', data: {remote: true, confirm: "Do you really wanna delete item \"#{i.title}\"?"}, class: 'remove' %>
+        <span class="amount"><%= i.amount %> $</span>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row entry" id="total">
+    <div class="small-12 columns">
+      Total:
+      <span class="amount"><%= voucher.total_amount %> $</span>
     </div>
   </div>
 <% end %>
-
-<div class="row entry" id="total">
-  <div class="small-12 columns">
-    Total:
-    <span class="amount"><%= voucher.total_amount %> $</span>
-  </div>
-</div>
