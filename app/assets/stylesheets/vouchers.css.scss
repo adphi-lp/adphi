@@ -26,4 +26,13 @@
   div:hover > .open {
     display: inline;
   }
+
+  #line_items, #receipts {
+    margin-bottom: 30px;
+  }
+
+  .row.collapse input,
+  .row.collapse button {
+    margin: 5px 0;
+  }
 }
