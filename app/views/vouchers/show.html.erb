@@ -33,7 +33,7 @@
     <%= f.embedded_file_field :content, placeholder: 'File to attach to this voucher. ' %>
   </div>
   <div class="small-2 columns">
-    <%= f.submit "Attach Receipt", class: 'button postfix' %>
+    <%= f.button "Attach Receipt", class: 'button postfix', data: {disable_with: 'Uploading...'} %>
   </div>
 </div>
 <% end %>
