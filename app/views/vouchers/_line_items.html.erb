@@ -16,7 +16,7 @@
       <div class="small-12 columns">
         <%= i.title %>
         <%= link_to 'remove', [voucher, i], method: :delete, class: 'remove', data: {remote: true, confirm: "Do you really wanna delete item \"#{i.title}\"?"}, class: 'remove' %>
-        <span class="amount"><%= i.amount %> $</span>
+        <span class="amount">$ <%= i.amount %></span>
       </div>
     </div>
   <% end %>
@@ -24,7 +24,7 @@
   <div class="row entry" id="total">
     <div class="small-12 columns">
       Total:
-      <span class="amount"><%= voucher.total_amount %> $</span>
+      <span class="amount">$ <%= voucher.total_amount %></span>
     </div>
   </div>
 <% end %>
