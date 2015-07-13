@@ -3,7 +3,7 @@ class Shortlog < ActiveRecord::Base
 
   serialize :content
 
-  enum log_type: [:plaintext, :attendence, :balance]
+  enum log_type: [:plaintext, :attendence, :balance, :create_voucher]
 
   validates :brother, presence: true
   validates :log_type, presence: true
@@ -26,6 +26,9 @@ class Shortlog < ActiveRecord::Base
         creator = Brother.find(content[:creator_id])
         balance_title = "#{content[:kind].to_s.capitalize} Job Balance"
         entry[:description] = "[[#{creator.name}]] changed his [[#{balance_title}]] by [[#{content[:change]}]] for [[#{content[:message]}]]"
+      when :create_voucher
+        voucher = Voucher.find(content[:voucher_id])
+        entry[:description] = "[[#{brother.name}]] submitted a voucher titled [[#{voucher.title}]]"
       end
 
       entry
@@ -63,6 +66,15 @@ class Shortlog < ActiveRecord::Base
         kind: kind,
         change: change,
         message: message
+      }
+    )
+  end
+
+  def self.create_voucher(brother, voucher_id)
+    brother.shortlogs.create(
+      log_type: 'create_voucher',
+      content: {
+        voucher_id: voucher_id
       }
     )
   end
