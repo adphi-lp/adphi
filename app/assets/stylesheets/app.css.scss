@@ -94,3 +94,15 @@ nav .name h1 a {
   background-color: transparent;
   color: black;
 }
+
+// embedded-file-field
+
+.embedded-file-field {
+  input[type=file] {
+    display: none;
+  }
+
+  input[type=text][readonly] {
+    background-color: #FFF;
+  }
+}

@@ -2,6 +2,7 @@ class Voucher < ActiveRecord::Base
   belongs_to :brother, class_name: "Brother"
 
   has_many :line_items
+  has_many :receipts
 
   validates :title, presence: true, length: {minimum: 5, maximum: 100}
 

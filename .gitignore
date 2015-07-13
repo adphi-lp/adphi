@@ -17,3 +17,6 @@
 
 /vendor/ruby
 db/backups/
+
+# added by GitSavvy
+public/system
