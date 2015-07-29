@@ -10,21 +10,33 @@
     </div>
   </div>
 <% else %>
-  <% line_items.each do |i| %>
-    <% next if i.new_record? %>
-    <div class="row entry">
-      <div class="small-12 columns">
-        <%= i.title %>
-        <%= link_to 'remove', [voucher, i], method: :delete, class: 'remove', data: {remote: true, confirm: "Do you really wanna delete item \"#{i.title}\"?"}, class: 'remove' %>
-        <span class="amount">$ <%= i.amount %></span>
-      </div>
-    </div>
-  <% end %>
-
-  <div class="row entry" id="total">
+  <div class="row">
     <div class="small-12 columns">
-      Total:
-      <span class="amount">$ <%= voucher.total_amount %></span>
+      <table class="full-width line-items-table">
+        <thead>
+          <th>Item Name</th>
+          <th>Budget Type</th>
+          <th>Purchase Date</th>
+          <th>Amount</th>
+          <th>Actions</th>
+        </thead>
+        <% line_items.each do |i| %>
+          <tr>
+            <% next if i.new_record? %>
+            <td><%= i.title %></td>
+            <td><%= i.budget_type_name %></td>
+            <td><%= i.purchase_date.to_s %></td>
+            <td>$ <%= i.amount %></td>
+            <td>
+              <%= link_to 'Remove', [voucher, i], method: :delete, data: {remote: true, confirm: "Do you really wanna delete item \"#{i.title}\"?"} %>
+            </td>
+          </tr>
+        <% end %>
+        <tr>
+          <td colspan="3">Total: </td>
+          <td colspan="2">$ <%= voucher.total_amount %></td>
+        </tr>
+      </table>
     </div>
   </div>
 <% end %>

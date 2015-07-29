@@ -8,12 +8,18 @@
 <h4>Items</h4>
 
 <%= form_for [@voucher, @line_item], remote: true do |f| %>
-<div class="row collapse">
-  <div class="small-6 columns">
-    <%= f.text_field :title, placeholder: 'Item name. ' %>
+<div class="row collapse inline-form">
+  <div class="small-5 columns">
+    <%= f.text_field :title, placeholder: 'Item name. ', autofocus: true %>
   </div>
-  <div class="small-4 columns">
-    <%= f.text_field :amount, placeholder: 'Amount. ' %>
+  <div class="small-1 columns">
+    <%= f.text_field :amount, placeholder: '$ amount. ' %>
+  </div>
+  <div class="small-2 columns">
+    <%= f.text_field :purchase_date, placeholder: 'Purchase date. ' %>
+  </div>
+  <div class="small-2 columns">
+  <%= f.select :budget_type, LineItem.budget_type_options %>
   </div>
   <div class="small-2 columns">
     <%= f.submit "Add Item", class: 'button postfix' %>

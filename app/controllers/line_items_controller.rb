@@ -15,6 +15,6 @@ class LineItemsController < ApplicationController
 
   private
     def line_item_params
-      params.require(:line_item).permit(:title, :amount)
+      params.require(:line_item).permit(:title, :amount, :purchase_date, :budget_type)
     end
 end

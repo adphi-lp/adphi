@@ -11,8 +11,8 @@
  * file per style scope.
  *
  *= require app
+ *= require css/foundation-datepicker.min
  *= require_tree .
  *= require_self
  *= require foundation_and_overrides
-
  */

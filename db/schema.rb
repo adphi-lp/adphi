@@ -59,6 +59,9 @@ ActiveRecord::Schema.define(version: 20150915003913) do
     t.decimal  "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "purchase_date"
+    t.integer  "budget_type"
+    t.integer  "state"
   end
 
   create_table "meetings", force: true do |t|
