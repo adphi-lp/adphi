@@ -80,7 +80,7 @@
         <%= sig.pending? ? 'has not' : 'has' %>
         signed.
       </div>
-      <% if sig.pending? && sig.brother && current_brother %>
+      <% if sig.pending? && sig.brother == current_brother %>
         <div class="small-2 columns">
           <%= link_to 'Sign', sign_signature_path(sig), method: :post, data: {confirm: 'Do you really want to approve this voucher? '}, class: 'button postfix' %>
         </div>
