@@ -64,3 +64,46 @@
     </div>
   </div>
 <% end %>
+
+<% if @voucher.pending_signatures? %>
+  <div class="row collapse inline-form">
+    <div class="small-12 columns">
+      <%= "This voucher is waiting on signatures from the officers. " if @voucher.pending_officer_signatures? %>
+      <%= "This voucher is waiting on signature from the president. " if @voucher.pending_president_signature? %>
+      <%= "This voucher is waiting on signature from the treasurer. " if @voucher.pending_treasurer_signature? %>
+    </div>
+  </div>
+  <% @voucher.current_signatures.each do |sig| %>
+    <div class="row collapse inline-form">
+      <div class="small-8 columns">
+        <%= sig.brother.name %>
+        <%= sig.pending? ? 'has not' : 'has' %>
+        signed.
+      </div>
+      <% if sig.pending? && sig.brother && current_brother %>
+        <div class="small-2 columns">
+          <%= link_to 'Sign', sign_signature_path(sig), method: :post, data: {confirm: 'Do you really want to approve this voucher? '}, class: 'button postfix' %>
+        </div>
+        <div class="small-2 columns">
+          <%= link_to 'Decline', decline_signature_path(sig), method: :post, data: {confirm: 'Do you really want to decline this voucher? It will cause the entire voucher to be declined immediately. '}, class: 'button alert postfix' %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+<% if @voucher.declined? %>
+  <div class="row collapse inline-form">
+    <div class="small-12 columns">
+      <p>This voucher has been declined. </p>
+    </div>
+  </div>
+<% end %>
+
+<% if @voucher.approved? %>
+  <div class="row collapse inline-form">
+    <div class="small-12 columns">
+      <p>This voucher has been approved. </p>
+    </div>
+  </div>
+<% end %>
