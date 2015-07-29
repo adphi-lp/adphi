@@ -1,5 +1,13 @@
 $hover-background-color: #eee;
 
+// utilities
+
+.full-width {
+  width: 100%;
+}
+
+// common
+
 nav .name h1 a {
   font-family: 'Tinos', serif;
   font-size: 24px;
@@ -105,4 +113,18 @@ nav .name h1 a {
   input[type=text][readonly] {
     background-color: #FFF;
   }
+}
+
+// .inline-form
+
+.inline-form {
+  select {
+    margin: 5px 0;
+  }
+}
+
+// table.full-width
+
+table.full-width {
+  margin-top: 20px;
 }

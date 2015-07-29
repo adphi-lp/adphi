@@ -15,6 +15,7 @@
 //= require jquery.remotipart
 //= require foundation
 //= require turbolinks
+//= require js/foundation-datepicker.min
 //= require_tree .
 
 $(function(){ $(document).foundation(); });

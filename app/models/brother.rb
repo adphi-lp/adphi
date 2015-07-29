@@ -1,47 +1,10 @@
 class Brother < ActiveRecord::Base
+  include PositionConstants
+
   scope :current, -> { where(current: true) }
 
-  enum position: [
-    :president,
-    :vice_president,
-    :treasurer,
-    :secretary,
-    :house_manager,
-    :kitchen_manager,
-    :social_chairman,
-    :rush_chairman,
-    :pledge_trainer,
-    :brotherhood,
-    :academic_chairman,
-    :athletic_chairman,
-    :alumni_relations_chairman,
-    :community_relations_chairman,
-    :historian,
-    :fraternity_representative,
-    :society_representative,
-    :critic
-  ]
-
-  POSITION_NAMES = [
-    "President",
-    "Vice President",
-    "Treasurer",
-    "Secretary",
-    "House Manager",
-    "Kitchen Manager",
-    "Social Chairman",
-    "Rush Chairman",
-    "Pledge Trainer",
-    "Brotherhood",
-    "Academic Chairman",
-    "Athletic Chairman",
-    "Alumni Relations Chairman",
-    "Community Relations Chairman",
-    "Historian",
-    "Fraternity Representative",
-    "Society Representative",
-    "Critic"
-  ]
+  # the order of this must NOT be changed! new entries MUST go at the end
+  enum position: POSITIONS
 
   belongs_to :pledge_class
 
