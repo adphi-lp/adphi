@@ -12,6 +12,7 @@ class Brother < ActiveRecord::Base
   has_many :meetings, foreign_key: 'creator_id', dependent: :destroy
   has_many :attendences, dependent: :destroy
   has_many :balances, dependent: :destroy
+  has_many :vouchers, dependent: :destroy
 
   validates :name, presence: true, length: {minimum: 1, maximum: 100}
   validates :kerberos, presence: true, length: {minimum: 1, maximum: 8}

@@ -4,7 +4,7 @@ class VouchersController < ApplicationController
   def index
     @voucher = Voucher.new(title: 'Voucher for ')
 
-    @vouchers = Voucher.all
+    @vouchers = current_brother.vouchers.all
   end
 
   def show
