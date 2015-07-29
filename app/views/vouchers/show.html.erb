@@ -7,6 +7,7 @@
 
 <h4>Items</h4>
 
+<% if @voucher.draft? %>
 <%= form_for [@voucher, @line_item], remote: true do |f| %>
 <div class="row collapse inline-form">
   <div class="small-5 columns">
@@ -26,6 +27,7 @@
   </div>
 </div>
 <% end %>
+<% end %>
 
 <div id="line_items">
   <%= render 'line_items', voucher: @voucher %>
@@ -33,6 +35,7 @@
 
 <h4>Receipts</h4>
 
+<% if @voucher.draft? %>
 <%= form_for [@voucher, @receipt], remote: true, authenticity_token: true, builder: ApplicationHelper::ExtendedFormBuilder, html: {multipart: true} do |f| %>
 <div class="row collapse">
   <div class="small-10 columns">
@@ -43,7 +46,21 @@
   </div>
 </div>
 <% end %>
+<% end %>
 
 <div id="receipts">
   <%= render 'receipts', voucher: @voucher %>
 </div>
+
+<h4>State</h4>
+
+<% if @voucher.draft? %>
+  <div class="row collapse inline-form">
+    <div class="small-10 columns">
+      <p>This voucher is still a draft.</p>
+    </div>
+    <div class="small-2 columns">
+    <%= link_to 'Submit', publish_voucher_path(@voucher), method: :post, data: {confirm: 'Vouchers cannot be altered once submitted. Are you sure? '}, class: 'button postfix' %>
+    </div>
+  </div>
+<% end %>

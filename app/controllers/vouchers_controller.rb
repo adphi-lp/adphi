@@ -32,6 +32,13 @@ class VouchersController < ApplicationController
     end
   end
 
+  def publish
+    @voucher = Voucher.find(params[:id])
+
+    @voucher.publish!
+    redirect_to voucher_path(@voucher), success: 'You have submitted this voucher. It can no longer be modified. '
+  end
+
   private
     def voucher_params
       params.require(:voucher).permit(:title)

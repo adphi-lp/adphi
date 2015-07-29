@@ -18,7 +18,9 @@
           <th>Budget Type</th>
           <th>Purchase Date</th>
           <th>Amount</th>
+          <% if voucher.draft? %>
           <th>Actions</th>
+          <% end %>
         </thead>
         <% line_items.each do |i| %>
           <tr>
@@ -27,9 +29,11 @@
             <td><%= i.budget_type_name %></td>
             <td><%= i.purchase_date.to_s %></td>
             <td>$ <%= i.amount %></td>
+            <% if voucher.draft? %>
             <td>
               <%= link_to 'Remove', [voucher, i], method: :delete, data: {remote: true, confirm: "Do you really wanna delete item \"#{i.title}\"?"} %>
             </td>
+            <% end %>
           </tr>
         <% end %>
         <tr>

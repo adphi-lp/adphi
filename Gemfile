@@ -57,3 +57,5 @@ gem 'paperclip'
 gem 'remotipart'
 
 gem 'aws-sdk-v1'
+
+gem 'aasm'
