@@ -3,7 +3,7 @@ class Shortlog < ActiveRecord::Base
 
   serialize :content
 
-  enum log_type: [:plaintext, :attendence, :balance, :create_voucher]
+  enum log_type: [:plaintext, :attendence, :balance, :create_voucher, :signature]
 
   validates :brother, presence: true
   validates :log_type, presence: true
@@ -29,6 +29,9 @@ class Shortlog < ActiveRecord::Base
       when :create_voucher
         voucher = Voucher.find(content[:voucher_id])
         entry[:description] = "[[#{brother.name}]] submitted a voucher titled [[#{voucher.title}]]"
+      when :signature
+        sig = Signature.find(content[:signature_id])
+        entry[:description] = "[[#{brother.name}]] [[#{content[:action].to_s == 'decline' ? 'declined' : 'signed'}]] #{sig.shortlog_signable_description}"
       end
 
       entry
@@ -75,6 +78,16 @@ class Shortlog < ActiveRecord::Base
       log_type: 'create_voucher',
       content: {
         voucher_id: voucher_id
+      }
+    )
+  end
+
+  def self.signature(brother, signature_id, action)
+    brother.shortlogs.create(
+      log_type: 'signature',
+      content: {
+        signature_id: signature_id,
+        action: action
       }
     )
   end

@@ -31,6 +31,10 @@ class Signature < ActiveRecord::Base
     end
   end
 
+  def shortlog_signable_description
+    "#{signable.brother.name}'s voucher titled [[#{signable.title}]]" if signable.is_a? Voucher
+  end
+
   private
 
     def infer_position
