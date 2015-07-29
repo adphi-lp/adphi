@@ -13,12 +13,17 @@ class Brother < ActiveRecord::Base
   has_many :attendences, dependent: :destroy
   has_many :balances, dependent: :destroy
   has_many :vouchers, dependent: :destroy
+  has_many :signatures, dependent: :destroy
 
   validates :name, presence: true, length: {minimum: 1, maximum: 100}
   validates :kerberos, presence: true, length: {minimum: 1, maximum: 8}
   validates :year, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 1900, less_than_or_equal_to: 3000}
   validates :pledge_class, presence: true
   validates :current, :inclusion => {:in => [true, false]}
+
+  def self.officer(position)
+    find_by!(position: self.positions[position])
+  end
 
   # Fetch balances
 

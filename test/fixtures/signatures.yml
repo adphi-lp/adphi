@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  brother_id: 1
+  signable_id: 1
+  signable_type: MyString
+  state: 1
+  position: 1
+
+two:
+  brother_id: 1
+  signable_id: 1
+  signable_type: MyString
+  state: 1
+  position: 1
