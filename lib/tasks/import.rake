@@ -1,4 +1,9 @@
 namespace :import do
+  desc "Import everything that you need for developing. "
+  task all: [:pledge_classes, :brothers] do
+    puts "Imported. "
+  end
+
   desc "Import some brother data for developing convenience. "
   task brothers: :environment do
     file = Rails.root.join("app/assets/brothers.csv")
