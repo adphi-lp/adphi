@@ -1,6 +1,6 @@
 namespace :import do
   desc "Import everything that you need for developing. "
-  task all: [:pledge_classes, :brothers] do
+  task all: [:pledge_classes, :brothers, :officers] do
     puts "Imported. "
   end
 
@@ -60,6 +60,22 @@ namespace :import do
       })
 
       puts 'Created ' + n
+    end
+  end
+
+  desc "Assign brothers to some positions"
+  task officers: :environment do
+    officers = {
+      'Alec Heifetz' => :president,
+      'Richard Hsu' => :treasurer
+    }
+
+    officers.each do |k, v|
+      brother = Brother.find_by!(name: k)
+      brother.position = Brother.positions[v]
+      brother.save!
+
+      puts "Appointed #{k} as #{v.to_s.humanize}"
     end
   end
 end
