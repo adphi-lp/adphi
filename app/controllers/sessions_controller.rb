@@ -4,6 +4,15 @@ class SessionsController < ApplicationController
   require 'json'
 
   def new
+    if (Rails.env.development? || ENV['ADPHI_IMPERSONATE']) && params[:as].present?
+      brother = Brother.find_by(kerberos: params[:as])
+
+      return redirect_to root_path, flash: {error: 'Cannot find brother with kerberos ' + params[:as]} if brother.nil?
+
+      sign_in brother
+      return redirect_back root_path, flash: {success: "Welcome, Brother #{brother.name}. "}
+    end
+
     redirect_to 'https://jiahaoli.scripts.mit.edu:444/bitstation/authenticate/?auth_token=' + generate_auth_token
   end
 
