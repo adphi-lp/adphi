@@ -67,7 +67,8 @@ namespace :import do
   task officers: :environment do
     officers = {
       'Alec Heifetz' => :president,
-      'Richard Hsu' => :treasurer
+      'Richard Hsu' => :treasurer,
+      'Charles Fu' => :kitchen_manager
     }
 
     officers.each do |k, v|
