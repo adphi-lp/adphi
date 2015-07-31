@@ -1,5 +1,5 @@
 namespace :import do
-  desc "TODO"
+  desc "Import some brother data for developing convenience. "
   task brothers: :environment do
     file = Rails.root.join("app/assets/brothers.csv")
     lines = File.read(file).lines.select { |x| !x.strip.empty? }
@@ -35,6 +35,7 @@ namespace :import do
     end
   end
 
+  desc "Import some plege classes for developing convenience. "
   task pledge_classes: :environment do
     classes = {
       'Wolfpack' => 2014,
