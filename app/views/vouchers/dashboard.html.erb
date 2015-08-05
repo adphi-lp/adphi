@@ -1,0 +1,40 @@
+<h2>Incoming Vouchers</h2>
+
+<% if !@vouchers.blank? %>
+<div class="row">
+  <div class="small-12 columns">
+    <table class="full-width">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>From</th>
+          <th>Submission Date</th>
+          <th>Action Required</th>
+          <th>Amount Requested</th>
+          <th>Amount Paid</th>
+          <th>Pay Date</th>
+          <th>Check #</th>
+        </tr>
+      </thead>
+      <% for v in @vouchers %>
+      <tr>
+        <td><%= link_to v.title, v %></td>
+        <td><%= v.brother.name %></td>
+        <td><%= v.created_at.to_date.to_s %></td>
+        <td><%= 'Yes' if (v.current_signatures.map(&:brother_id).include? current_brother.id) %></td>
+        <td><%= v.total_amount %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <% end %>
+      </table>
+    </div>
+  </div>
+  <% else %>
+  <div class="row entry">
+    <div class="small-12 columns">
+      <p>There are no vouchers requiring your signature. </p>
+    </div>
+  </div>
+  <% end %>

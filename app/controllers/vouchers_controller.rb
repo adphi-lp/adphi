@@ -1,5 +1,5 @@
 class VouchersController < ApplicationController
-  before_action :require_signed_in, only: [:index, :show, :create, :edit, :update]
+  before_action :require_signed_in, only: [:index, :show, :create, :edit, :update, :dashboard]
 
   def index
     @voucher = Voucher.new(title: 'Voucher for ')
@@ -37,6 +37,12 @@ class VouchersController < ApplicationController
 
     @voucher.publish!
     redirect_to voucher_path(@voucher), success: 'You have submitted this voucher. It can no longer be modified. '
+  end
+
+  def dashboard
+    @vouchers = Voucher.all.to_a.select do |v|
+      v.signatures.map(&:brother_id).include? current_brother.id
+    end
   end
 
   private

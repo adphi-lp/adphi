@@ -39,6 +39,10 @@ Rails.application.routes.draw do
     member do
       post 'publish'
     end
+
+    collection do
+      get 'dashboard'
+    end
   end
 
   resources :signatures, only: [] do
