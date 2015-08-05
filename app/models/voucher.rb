@@ -36,7 +36,7 @@ class Voucher < ActiveRecord::Base
     event :promote do
       transitions from: :pending_officer_signatures, to: :pending_president_signature, guard: :can_promote?
       transitions from: :pending_president_signature, to: :pending_treasurer_signature, guard: :can_promote?
-      transitions from: :pending_treasurer_signature, to: :approved, guard: :can_promote?
+      transitions from: :pending_treasurer_signature, to: :approved, guard: :can_promote?, after: :record_approval
     end
 
     event :decline do
@@ -100,6 +100,10 @@ class Voucher < ActiveRecord::Base
       )
 
       promote! while may_promote?
+    end
+
+    def record_approval
+      self.approved_at = Time.now
     end
 
     # all required signatures are signed

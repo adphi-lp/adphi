@@ -1,4 +1,11 @@
 class VouchersController < ApplicationController
+  # CanCan strong_parameters workaround https://github.com/ryanb/cancan/issues/571
+  before_filter do
+    params[:voucher] &&= voucher_params
+  end
+
+  load_and_authorize_resource
+
   before_action :require_signed_in, only: [:index, :show, :create, :edit, :update, :dashboard]
 
   def index
@@ -45,8 +52,24 @@ class VouchersController < ApplicationController
     end
   end
 
+  def approve
+    unless params[:check_number].present? && params[:paid_amount].present?
+      redirect_to @voucher, flash: {alert: 'Invalid check number or amount to pay. '}
+      return
+    end
+
+    @voucher.check_number = params[:check_number].to_f
+    @voucher.paid_amount = params[:paid_amount].to_f
+
+    @voucher.save!
+
+    Signature.find(params[:signature_id]).sign!
+
+    redirect_to voucher_path(@voucher), flash: {success: 'You\'ve approved this voucher. '}
+  end
+
   private
     def voucher_params
-      params.require(:voucher).permit(:title)
+      params.require(:voucher).permit(:title, :owner_id)
     end
 end

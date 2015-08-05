@@ -125,7 +125,13 @@ nav .name h1 a {
   }
 
   p {
+    margin-top: 5px;
     line-height: 37px;
+  }
+
+  a.button.postfix {
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
 }
 
