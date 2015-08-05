@@ -117,7 +117,10 @@ ActiveRecord::Schema.define(version: 20150915003913) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "state",      default: 0
+    t.integer  "state",        default: 0
+    t.decimal  "paid_amount"
+    t.datetime "approved_at"
+    t.string   "check_number"
   end
 
 end

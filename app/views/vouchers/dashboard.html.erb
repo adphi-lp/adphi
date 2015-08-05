@@ -23,9 +23,9 @@
         <td><%= v.created_at.to_date.to_s %></td>
         <td><%= 'Yes' if (v.current_signatures.map(&:brother_id).include? current_brother.id) %></td>
         <td><%= v.total_amount %></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= v.paid_amount if v.approved? %></td>
+        <td><%= v.approved_at.to_date.to_s if v.approved? %></td>
+        <td><%= v.check_number if v.approved? %></td>
       </tr>
       <% end %>
       </table>
