@@ -1,6 +1,8 @@
 class Voucher < ActiveRecord::Base
   include AASM
 
+  default_scope -> { order('created_at DESC') }
+
   belongs_to :brother, class_name: "Brother"
 
   has_many :line_items
@@ -53,6 +55,8 @@ class Voucher < ActiveRecord::Base
       pending_treasurer_signature: :as_treasurer,
       pending_president_signature: :as_president
     }
+
+    return [] if category_map[state.to_sym].nil?
 
     signatures.where(category: Signature.categories[category_map[state.to_sym]])
   end

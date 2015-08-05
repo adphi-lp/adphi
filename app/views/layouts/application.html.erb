@@ -17,7 +17,7 @@
   </head>
 
   <body id="<%= "#{params[:controller]}_#{params[:action]}" %>" class="<%= "#{params[:controller]}-action" %>">
-    <nav class="top-bar" data-topbar role="navigation">
+    <nav class="top-bar" data-topbar data-no-turbolink role="navigation">
       <ul class="title-area">
         <li class="name">
           <h1><a href="<%= root_path %>">ΑΔΦ ΛΦ</a></h1>
@@ -38,7 +38,15 @@
             <li><a href="<%= brothers_path %>">Brothers</a></li>
           <% end %>
           <% if can? :read, Voucher %>
-            <li><%= link_to 'Vouchers', vouchers_path %></li>
+            <li class="has-dropdown">
+              <%= link_to 'Vouchers', '#' %>
+              <ul class="dropdown">
+                <li><%= link_to 'My Vouchers', vouchers_path %></li>
+                <% if current_brother.has_voucher_dashboard? %>
+                  <li><%= link_to 'Officer View', dashboard_vouchers_path %></li>
+                <% end %>
+              </ul>
+            </li>
           <% end %>
           <% if signed_in? %>
             <li><a href="<%= sign_out_path %>">Sign Out</a></li>

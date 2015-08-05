@@ -25,6 +25,11 @@ class Brother < ActiveRecord::Base
     find_by!(position: self.positions[position])
   end
 
+  def has_voucher_dashboard?
+    president? || treasurer? ||
+    (Signature::POSITIONS_WITH_BUDGET.include? position.to_sym)
+  end
+
   # Fetch balances
 
   def balance(kind)
