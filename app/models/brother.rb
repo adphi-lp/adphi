@@ -27,7 +27,7 @@ class Brother < ActiveRecord::Base
 
   def has_voucher_dashboard?
     president? || treasurer? ||
-    (Signature::POSITIONS_WITH_BUDGET.include? position.to_sym)
+    (position.present? && (Signature::POSITIONS_WITH_BUDGET.include? position.to_sym))
   end
 
   # Fetch balances
