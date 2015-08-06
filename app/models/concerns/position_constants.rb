@@ -9,7 +9,7 @@ module PositionConstants
     :social_chairman,
     :rush_chairman,
     :pledge_trainer,
-    :brotherhood,
+    :brotherhood_chairman,
     :academic_chairman,
     :athletic_chairman,
     :alumni_relations_chairman,
@@ -17,7 +17,8 @@ module PositionConstants
     :historian,
     :fraternity_representative,
     :society_representative,
-    :critic
+    :critic,
+    :literary_chairman
   ]
 
   # the order of this, however, can be changed
@@ -52,6 +53,7 @@ module PositionConstants
     "Historian",
     "Fraternity Representative",
     "Society Representative",
-    "Critic"
+    "Critic",
+    "Literary Chairman"
   ]
 end
