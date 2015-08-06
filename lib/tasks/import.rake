@@ -67,11 +67,24 @@ namespace :import do
   task officers: :environment do
     officers = {
       'Alec Heifetz' => :president,
+      'Robi Bhattacharjee' => :vice_president,
+      'Robert Burklund' => :secretary,
+      'Samuel Matthews' => :house_manager,
+      'James Deng' => :kitchen_manager,
+      'Ryan King-Shepard' => :social_chairman,
+      'Tomohiro Soejima' => :academic_chairman,
+      'Paolo Gentili' => :athletic_chairman,
+      'Richard Hsu' => :alumni_relations_chairman,
+      'Hao Xing' => :community_relations_chairman,
+      'Sasha Chaykovskyy' => :fraternity_representative,
+      'Sasha Chaykovskyy' => :society_representative,
+      'Vincent Anioke' => :literary_chairman,
+      'Matthew Vernacchia' => :critic,
       'Richard Hsu' => :treasurer,
-      'Charles Fu' => :kitchen_manager
     }
 
     officers.each do |k, v|
+      raise unless Brother::POSITIONS.include?(v)
       brother = Brother.find_by!(name: k)
       brother.position = Brother.positions[v]
       brother.save!
