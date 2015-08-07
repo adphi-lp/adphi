@@ -58,7 +58,7 @@ class VouchersController < ApplicationController
       return
     end
 
-    @voucher.check_number = params[:check_number].to_f
+    @voucher.check_number = params[:check_number]
     @voucher.paid_amount = params[:paid_amount].to_f
 
     @voucher.save!

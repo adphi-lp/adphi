@@ -1,0 +1,80 @@
+.row.headerblock
+  .small-12.columns
+    %h2= @voucher.title
+    %h3
+      Submitted by #{link_to @voucher.brother.name, @voucher.brother} on #{friendly_date @voucher.created_at}
+
+%h4 Items
+- if @voucher.draft?
+  = form_for [@voucher, @line_item], remote: true do |f|
+    .row.collapse.inline-form
+      .small-5.columns
+        = f.text_field :title, placeholder: 'Item name. ', autofocus: true
+      .small-1.columns
+        = f.text_field :amount, placeholder: '$ amount. '
+      .small-2.columns
+        = f.text_field :purchase_date, placeholder: 'Purchase date. '
+      .small-2.columns
+        = f.select :budget_type, LineItem.budget_type_options
+      .small-2.columns
+        = f.submit "Add Item", class: 'button postfix'
+#line_items
+  = render 'line_items', voucher: @voucher
+
+%h4 Receipts
+- if @voucher.draft?
+  = form_for [@voucher, @receipt], remote: true, authenticity_token: true, builder: ApplicationHelper::ExtendedFormBuilder, html: {multipart: true} do |f|
+    .row.collapse
+      .small-10.columns
+        = f.embedded_file_field :content, placeholder: 'File to attach to this voucher. '
+      .small-2.columns
+        = f.button "Attach Receipt", class: 'button postfix', data: {disable_with: 'Uploading...'}
+#receipts
+  = render 'receipts', voucher: @voucher
+
+%h4 State
+- if @voucher.draft?
+  .row.collapse.inline-form
+    .small-10.columns
+      %p This voucher is still a draft.
+    .small-2.columns
+      = link_to 'Submit', publish_voucher_path(@voucher), method: :post, data: {confirm: 'Vouchers cannot be altered once submitted. Are you sure? '}, class: 'button postfix'
+- if @voucher.pending_signatures?
+  .row.collapse.inline-form
+    .small-12.columns
+      = "This voucher is waiting on signatures from the officers. " if @voucher.pending_officer_signatures?
+      = "This voucher is waiting on signature from the president. " if @voucher.pending_president_signature?
+      = "This voucher is waiting on signature from the treasurer. " if @voucher.pending_treasurer_signature?
+  - @voucher.current_signatures.each do |sig|
+    .row
+      .small-12.columns
+        = sig.brother.name
+        = sig.pending? ? 'has not' : 'has'
+        signed.
+    - if sig.pending? && sig.brother == current_brother
+      - if @voucher.pending_treasurer_signature?
+        = form_tag approve_voucher_path(@voucher), method: :post do
+          .row.collapse.inline-form
+            = hidden_field_tag :signature_id, sig.id
+            .small-3.columns
+              = text_field_tag :paid_amount, '', placeholder: 'Amount to pay. '
+            .small-3.columns
+              = text_field_tag :check_number, '', placeholder: 'Check number. '
+            .small-3.columns
+              = submit_tag 'Approve', class: 'button postfix', data: {confirm: 'Do you really want to approve this voucher? '}
+            .small-3.columns
+              = link_to 'Decline', decline_signature_path(sig), method: :post, data: {confirm: 'Do you really want to decline this voucher? It will cause the entire voucher to be declined immediately. '}, class: 'button alert postfix'
+      - else
+        .row.collapse.inline-form
+          .small-6.columns
+            = link_to 'Sign', sign_signature_path(sig), method: :post, data: {confirm: 'Do you really want to approve this voucher? '}, class: 'button postfix'
+          .small-6.columns
+            = link_to 'Decline', decline_signature_path(sig), method: :post, data: {confirm: 'Do you really want to decline this voucher? It will cause the entire voucher to be declined immediately. '}, class: 'button alert postfix'
+- if @voucher.declined?
+  .row.collapse.inline-form
+    .small-12.columns
+      %p This voucher has been declined.
+- if @voucher.approved?
+  .row.collapse.inline-form
+    .small-12.columns
+      %p This voucher has been approved.
