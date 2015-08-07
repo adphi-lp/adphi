@@ -1,0 +1,59 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %title
+      ΑΔΦ ΛΦ#{content_for?(:title) ? " | " + yield(:title) : ""}
+    %link{:href => "http://fonts.googleapis.com/css?family=Lora", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "http://fonts.googleapis.com/css?family=Tinos&subset=greek", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600", :rel => "stylesheet", :type => "text/css"}/
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "vendor/modernizr"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body{:class => "#{params[:controller]}-action", :id => "#{params[:controller]}_#{params[:action]}"}
+    %nav.top-bar{"data-no-turbolink" => "", "data-topbar" => "", :role => "navigation"}
+      %ul.title-area
+        %li.name
+          %h1
+            %a{:href => root_path} ΑΔΦ ΛΦ
+        %li.toggle-topbar.menu-icon
+          %a{:href => "#"}
+            %span Menu
+      %section.top-bar-section
+        %ul.right
+          / <li><a href="attendence.html">Attendance</a></li>
+          - if signed_in?
+            %li
+              %a{:href => "#{brother_path(current_brother)}"}
+                Welcome, Brother #{current_brother.name}!
+          - if can? :read, Meeting
+            %li
+              %a{:href => meetings_path} Meetings
+          - if can? :read, Brother
+            %li
+              %a{:href => brothers_path} Brothers
+          - if can? :read, Voucher
+            %li.has-dropdown
+              = link_to 'Vouchers', '#'
+              %ul.dropdown
+                %li= link_to 'My Vouchers', vouchers_path
+                - if current_brother.has_voucher_dashboard?
+                  %li= link_to 'Officer View', dashboard_vouchers_path
+          - if signed_in?
+            %li
+              %a{:href => sign_out_path} Sign Out
+          - else
+            %li
+              %a{:href => sign_in_path} Sign In
+    .container
+      .row
+        #summary.small-12.columns
+          = render 'layouts/flashes'
+          = yield
+    #footer
+      Created with Love
+      %br/
+      Copyright ΑΔΦ ΛΦ 2014
