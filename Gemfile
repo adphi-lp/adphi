@@ -59,3 +59,5 @@ gem 'remotipart'
 gem 'aws-sdk-v1'
 
 gem 'aasm'
+
+gem "haml-rails", "~> 0.9"
