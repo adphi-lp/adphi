@@ -36,7 +36,13 @@ RailsAdmin.config do |config|
     # history_show
   end
 
+  config.included_models = ["Brother", "PledgeClass", "Meeting"]
+
   config.model 'Brother' do
+    configure :meetings do
+      hide
+    end
+
     configure :position do
       searchable false
     end
