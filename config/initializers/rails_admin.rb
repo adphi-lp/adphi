@@ -53,4 +53,10 @@ RailsAdmin.config do |config|
       searchable false
     end
   end
+
+  config.authorize_with do
+    unless current_brother && current_brother.admin?
+      redirect_to '/', flash: {alert: 'You are not authorized to access the backend. '}
+    end
+  end
 end

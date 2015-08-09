@@ -77,5 +77,12 @@ namespace :import do
 
       puts "Appointed #{k} as #{v.to_s.humanize}"
     end
+
+    ['Jiahao Li'].each do |a|
+      brother = Brother.find_by!(name: a)
+      brother.admin = true
+      brother.save!
+      puts "Gave system admin privilege to #{a}"
+    end
   end
 end
