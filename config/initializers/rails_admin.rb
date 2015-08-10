@@ -36,7 +36,7 @@ RailsAdmin.config do |config|
     # history_show
   end
 
-  config.included_models = ["Brother", "PledgeClass", "Meeting"]
+  config.included_models = ["Brother", "PledgeClass", "Meeting", "Voucher"]
 
   config.model 'Brother' do
     configure :meetings do
@@ -51,6 +51,20 @@ RailsAdmin.config do |config|
   config.model 'Balance' do
     configure :kind do
       searchable false
+    end
+  end
+
+  config.model 'Voucher' do
+    configure :state do
+      hide
+    end
+
+    configure :approved_at do
+      hide
+    end
+
+    configure :brother do
+      hide
     end
   end
 
