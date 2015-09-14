@@ -21,20 +21,6 @@ module PositionConstants
     :literary_chairman
   ]
 
-  # the order of this, however, can be changed
-  POSITIONS_WITH_BUDGET = [
-    :athletic_chairman,
-    :house_manager,
-    :kitchen_manager,
-    :pledge_trainer,
-    :rush_chairman,
-    :social_chairman,
-    :alumni_relations_chairman,
-    :secretary,
-    :vice_president,
-    :president,
-  ]
-
   POSITION_NAMES = [
     "President",
     "Vice President",
