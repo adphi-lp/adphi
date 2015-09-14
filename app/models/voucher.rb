@@ -79,7 +79,7 @@ class Voucher < ActiveRecord::Base
 
     def create_signatures
       # officer signatures
-      positions = line_items.map(&:budget_type).uniq
+      positions = line_items.map(&:budget_officer).uniq
       positions.each do |p|
         signatures.create!(
           brother_id: Brother.officer(p).id,
