@@ -2,7 +2,7 @@ class BalancesController < ApplicationController
   load_and_authorize_resource
 
   def update
-    change = params[:change].to_i
+    change = params[:change].to_f
     message = params[:message]
 
     @balance.value = @balance.value + change

@@ -23,8 +23,14 @@ ready = ->
     $('.kitchen_plus').click ->
       show_form($(this), '.kitchen_form', 1, 'making up')
 
+    $('.kitchen_plus_one_half').click ->
+      show_form($(this), '.kitchen_form', 1.5, 'making up')
+
     $('.kitchen_minus').click ->
       show_form($(this), '.kitchen_form', -1, 'missing kitchen crew')
+
+    $('.kitchen_minus_one_half').click ->
+      show_form($(this), '.kitchen_form', -1.5, 'missing kitchen crew')
 
     $('.house_plus').click ->
       show_form($(this), '.house_form', 1, 'making up')

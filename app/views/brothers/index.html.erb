@@ -33,8 +33,10 @@
       <div class="row">
         <div class="small-12 columns">
           <% if can? :update, @balances[b.id][:kitchen] %>
+            <p class="action"><%= link_to 'Kitchen+1.5', 'javascript: void(0); ', class: 'kitchen_plus_one_half' %></p>
             <p class="action"><%= link_to 'Kitchen+1', 'javascript: void(0); ', class: 'kitchen_plus' %></p>
             <p class="action"><%= link_to 'Kitchen-1', 'javascript: void(0); ', class: 'kitchen_minus' %></p>
+            <p class="action"><%= link_to 'Kitchen-1.5', 'javascript: void(0); ', class: 'kitchen_minus_one_half' %></p>
           <% end %>
           <% if can? :update, @balances[b.id][:house] %>
             <p class="action"><%= link_to 'House+1', 'javascript: void(0); ', class: 'house_plus' %></p>
