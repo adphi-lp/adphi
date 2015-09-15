@@ -21,28 +21,28 @@ ready = ->
       form.show()
 
     $('.kitchen_plus').click ->
-      show_form($(this), '.kitchen_form', 1, 'making up')
+      show_form($(this), '.kitchen_form', 1, 'making up kitchen crew')
 
     $('.kitchen_plus_one_half').click ->
-      show_form($(this), '.kitchen_form', 1.5, 'making up')
+      show_form($(this), '.kitchen_form', 1.5, 'unspecified reason')
 
     $('.kitchen_plus_quarter').click ->
-      show_form($(this), '.kitchen_form', 0.25, 'making up')
+      show_form($(this), '.kitchen_form', 0.25, 'putting away Sysco order')
 
     $('.kitchen_plus_half').click ->
-      show_form($(this), '.kitchen_form', 0.5, 'making up')
+      show_form($(this), '.kitchen_form', 0.5, 'unspecified reason')
 
     $('.kitchen_minus').click ->
-      show_form($(this), '.kitchen_form', -1, 'missing kitchen crew')
+      show_form($(this), '.kitchen_form', -1, 'missing kitchen crew with replacement')
 
     $('.kitchen_minus_one_half').click ->
-      show_form($(this), '.kitchen_form', -1.5, 'missing kitchen crew')
+      show_form($(this), '.kitchen_form', -1.5, 'missing kitchen crew without replacement')
 
     $('.kitchen_minus_quarter').click ->
-      show_form($(this), '.kitchen_form', -0.25, 'missing kitchen crew')
+      show_form($(this), '.kitchen_form', -0.25, 'unspecified reason')
 
     $('.kitchen_minus_half').click ->
-      show_form($(this), '.kitchen_form', -0.5, 'missing kitchen crew')
+      show_form($(this), '.kitchen_form', -0.5, 'unspecified reason')
 
     $('.house_plus').click ->
       show_form($(this), '.house_form', 1, 'making up')
