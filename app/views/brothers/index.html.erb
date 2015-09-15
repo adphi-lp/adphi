@@ -35,6 +35,8 @@
           <% if can? :update, @balances[b.id][:kitchen] %>
             <p class="action"><%= link_to 'Kitchen+1.5', 'javascript: void(0); ', class: 'kitchen_plus_one_half' %></p>
             <p class="action"><%= link_to 'Kitchen+1', 'javascript: void(0); ', class: 'kitchen_plus' %></p>
+            <p class="action"><%= link_to 'Kitchen+0.25', 'javascript: void(0); ', class: 'kitchen_plus_quarter' %></p>
+            <p class="action"><%= link_to 'Kitchen-0.25', 'javascript: void(0); ', class: 'kitchen_minus_quarter' %></p>
             <p class="action"><%= link_to 'Kitchen-1', 'javascript: void(0); ', class: 'kitchen_minus' %></p>
             <p class="action"><%= link_to 'Kitchen-1.5', 'javascript: void(0); ', class: 'kitchen_minus_one_half' %></p>
           <% end %>
