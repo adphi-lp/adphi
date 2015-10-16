@@ -1,6 +1,6 @@
 # Notification system API specification
 
-Assignee: Bojan
+Assignee: Faruk
 
 ## Overview
 
