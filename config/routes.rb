@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get 'sessions/fail'
 
   resources :brothers, only: [:index, :show] do
+    member do
+      get 'test_email'
+    end
   end
 
   resources :meetings, only: [:index, :show, :create, :destroy] do

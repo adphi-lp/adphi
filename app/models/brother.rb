@@ -81,4 +81,9 @@ class Brother < ActiveRecord::Base
       Balance.create_with(value: 0).find_or_create_by(brother_id: id, kind: v)
     end
   end
+
+  # Get the email for this brother
+  def email
+    return self.kerberos + "@mit.edu"
+  end
 end
