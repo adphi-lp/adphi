@@ -42,8 +42,8 @@ Rails.application.configure do
     :authentication => :plain,
     :address => "smtp.mailgun.org",
     :port => 587,
-    :domain => "sandboxf63c5488354f439da2b75e4aff4faa94.mailgun.org",
-    :user_name => "postmaster@sandboxf63c5488354f439da2b75e4aff4faa94.mailgun.org",
-    :password => "ad659d13c63cbd3bb5b733dc37fcdf66"
+    :domain => "adphi.house",
+    :user_name => "postmaster@adphi.house",
+    :password => "d769bcaa583705eea9ea033859c24f50"
   }
 end

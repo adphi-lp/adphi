@@ -25,7 +25,7 @@ class BrothersController < ApplicationController
 
   # Send a test email to the brother
   def test_email
-    NotificationsMailer.test_email(@brother).deliver
+    NotificationsMailer.test_email(@brother.email).deliver
 
     redirect_to root_url, flash: { notice: "EMAIL SENT" }
   end

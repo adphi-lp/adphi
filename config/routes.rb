@@ -1,5 +1,10 @@
+require 'resque/server'
+
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
+  # mount the resque
+  mount Resque::Server.new, at: '/resque'
 
   root 'static_pages#homepage'
 
