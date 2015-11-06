@@ -28,3 +28,8 @@
     </div>
   <% end %>
 </div>
+
+<p><%= @brother.email %></p>
+
+<p>Send a test email to yourself</p>
+<%= link_to "Send Email", controller: "brothers", action: "test_email", id: @brother %>

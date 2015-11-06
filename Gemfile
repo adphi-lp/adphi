@@ -50,3 +50,9 @@ gem 'unicorn'
 
 gem 'cancan'
 gem 'rack-mini-profiler'
+
+# Resque to handle asynchronous jobs
+gem 'resque'
+
+# Resque mailer for handling emails
+gem 'resque_mailer'
