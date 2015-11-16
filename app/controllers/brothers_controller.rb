@@ -22,4 +22,11 @@ class BrothersController < ApplicationController
       [b, as.select { |a| a.present? || a.tardy? }.size]
     end
   end
+
+  # Send a test email to the brother
+  def test_email
+    NotificationsMailer.test_email(@brother.email).deliver
+
+    redirect_to root_url, flash: { notice: "EMAIL SENT" }
+  end
 end

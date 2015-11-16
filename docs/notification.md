@@ -1,6 +1,6 @@
 # Notification system API specification
 
-Assignee: Bojan
+Assignee: Faruk
 
 ## Overview
 
@@ -36,3 +36,23 @@ Since sending SMS and sending email could both take an unpredictable amount of t
 To do this, [Resque](https://github.com/resque/resque) seems to provide a really easy way to accomplish this. Check it out. Also, [twilio-ruby](https://github.com/twilio/twilio-ruby) seems also really helpful with sending SMSs through Twilio. 
 
 Therefore, `User#post_notifications` should simply queue job(s) into Resque, and then immediately return, without waiting for the actual sending to finish. 
+
+## Important notes about resque
+
+Resque requires installation of redis.
+
+Before running email operations, a redis server must exist on the server and at least a single worker must be running which is responsible for handling the email jobs.
+
+Redis server can be started on boot (in configuration) or with the command
+
+	$ redis-server
+
+Also if you visit %root%/resque, you can see the status on resque workers.
+
+The worker started by resque should be looking at the QUEUE 'mailer'.
+
+Workers can be started with the command
+
+	$ bundle exec rake environment resque:work QUEUE=mailer
+
+

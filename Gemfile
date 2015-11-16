@@ -61,3 +61,10 @@ gem 'aws-sdk-v1'
 gem 'aasm'
 
 gem "haml-rails", "~> 0.9"
+
+# Resque to handle asynchronous jobs
+gem 'resque'
+
+# Resque mailer for handling emails
+gem 'resque_mailer'
+
