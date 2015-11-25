@@ -80,4 +80,6 @@ module BudgetConstants
     4113 => :house_manager,
     4111 => :house_manager
   }
+
+  POSITIONS_WITH_BUDGET = BUDGET_OFFICERS.values.uniq
 end
