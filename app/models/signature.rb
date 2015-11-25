@@ -1,6 +1,7 @@
 class Signature < ActiveRecord::Base
   include AASM
   include PositionConstants
+  include BudgetConstants
 
   before_validation :infer_position
 
