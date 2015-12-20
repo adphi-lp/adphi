@@ -85,4 +85,6 @@ Rails.application.configure do
     :user_name => ENV['MAILER_USERNAME'],
     :password => ENV['MAILER_PASSWORD']
   }
+
+  Rails.application.routes.default_url_options[:host] = 'dashboard.adphi.house'
 end

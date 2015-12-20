@@ -1,5 +1,6 @@
 class Voucher < ActiveRecord::Base
   include AASM
+  include Rails.application.routes.url_helpers
 
   default_scope -> { order('created_at DESC') }
 
@@ -33,13 +34,13 @@ class Voucher < ActiveRecord::Base
       transitions from: :draft, to: :pending_officer_signatures
     end
 
-    event :promote do
+    event :promote, after: :send_notifications do
       transitions from: :pending_officer_signatures, to: :pending_president_signature, guard: :can_promote?
       transitions from: :pending_president_signature, to: :pending_treasurer_signature, guard: :can_promote?
       transitions from: :pending_treasurer_signature, to: :approved, guard: :can_promote?, after: :record_approval
     end
 
-    event :decline do
+    event :decline, after: :send_notifications do
       transitions from: [:pending_officer_signatures, :pending_president_signature, :pending_treasurer_signature], to: :declined
     end
   end
@@ -75,6 +76,57 @@ class Voucher < ActiveRecord::Base
     decline!
   end
 
+  #-------------------------
+  #     MAILER CONSTANTS
+  #-------------------------
+
+  def send_notifications
+
+    content = "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
+    puts content
+
+    to_state = '#{aasm.to_state}'
+    
+    # If we went to the approved or declined states, notify the requester
+    if (to_state == 'approved' || to_state == 'declined')
+      NotificationsMailer.notification_email(
+          self.brother.email, 
+          "[Voucher] Your voucher has been " + to_state, 
+          "Use this link to view the voucher.", 
+          url_for(self)).deliver
+
+    else
+      # send an email to the officers
+      current_signatures.each do |sig|
+        officer = sig.brother
+
+        NotificationsMailer.notification_email(
+          officer.email, 
+          "[Voucher] Voucher request from " + self.brother.name, 
+          "Please use this link to view the request and approve/decline.", 
+          url_for(self)).deliver
+      end
+    end
+  end
+
+  # STAGE 1: Publish Voucher
+
+  def notification_subject_publish(brother)
+    if (brother == self.brother)
+      return "[Voucher] You Just Created a Voucher"
+    else 
+      return "[Voucher] Voucher request from: " + self.brother.name
+    end
+  end
+
+  def notification_content_publish(brother)
+    if (brother == self.brother)
+      return "Your voucher has been submitted! You can use the following link to view the status of your voucher."
+    else 
+      return "Please use this link to view the voucher request."
+    end
+  end
+
   private
 
     def create_signatures
@@ -100,6 +152,10 @@ class Voucher < ActiveRecord::Base
       )
 
       promote! while may_promote?
+
+      # At this point, notify the officers...
+      send_notifications()
+
     end
 
     def record_approval
@@ -110,4 +166,5 @@ class Voucher < ActiveRecord::Base
     def can_promote?
       current_signatures.all?(&:signed?)
     end
+
 end
