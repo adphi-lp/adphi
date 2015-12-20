@@ -46,4 +46,6 @@ Rails.application.configure do
     :user_name => "postmaster@adphi.house",
     :password => "d769bcaa583705eea9ea033859c24f50"
   }
+
+  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 end

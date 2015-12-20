@@ -67,4 +67,3 @@ gem 'resque'
 
 # Resque mailer for handling emails
 gem 'resque_mailer'
-
