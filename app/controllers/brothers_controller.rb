@@ -25,8 +25,12 @@ class BrothersController < ApplicationController
 
   # Send a test email to the brother
   def test_email
-    NotificationsMailer.notification_email(@brother.email, "Test", "hello", root_url).deliver
+    @brother.post_notification(
+      "Email testing. ",
+      "This email serves solely to ascertain that ADP Dashboard emails can reach your email address. ",
+      root_url
+    )
 
-    redirect_to root_url, flash: { notice: "EMAIL SENT" }
+    redirect_to root_url, flash: { notice: "Test email sent to #{@brother.email}. " }
   end
 end

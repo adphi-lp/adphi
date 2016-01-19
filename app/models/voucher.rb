@@ -81,18 +81,14 @@ class Voucher < ActiveRecord::Base
   #-------------------------
 
   def send_notifications
-
-    content = "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
-    puts content
-
     to_state = '#{aasm.to_state}'
-    
+
     # If we went to the approved or declined states, notify the requester
     if (to_state == 'approved' || to_state == 'declined')
       NotificationsMailer.notification_email(
-          self.brother.email, 
-          "[Voucher] Your voucher has been " + to_state, 
-          "Use this link to view the voucher.", 
+          self.brother.email,
+          "[Voucher] Your voucher has been " + to_state,
+          "Use this link to view the voucher.",
           url_for(self)).deliver
 
     else
@@ -101,9 +97,9 @@ class Voucher < ActiveRecord::Base
         officer = sig.brother
 
         NotificationsMailer.notification_email(
-          officer.email, 
-          "[Voucher] Voucher request from " + self.brother.name, 
-          "Please use this link to view the request and approve/decline.", 
+          officer.email,
+          "[Voucher] Voucher request from " + self.brother.name,
+          "Please use this link to view the request and approve/decline.",
           url_for(self)).deliver
       end
     end
@@ -114,7 +110,7 @@ class Voucher < ActiveRecord::Base
   def notification_subject_publish(brother)
     if (brother == self.brother)
       return "[Voucher] You Just Created a Voucher"
-    else 
+    else
       return "[Voucher] Voucher request from: " + self.brother.name
     end
   end
@@ -122,7 +118,7 @@ class Voucher < ActiveRecord::Base
   def notification_content_publish(brother)
     if (brother == self.brother)
       return "Your voucher has been submitted! You can use the following link to view the status of your voucher."
-    else 
+    else
       return "Please use this link to view the voucher request."
     end
   end

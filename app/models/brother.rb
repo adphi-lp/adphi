@@ -60,4 +60,15 @@ class Brother < ActiveRecord::Base
   def email
     return self.kerberos + "@mit.edu"
   end
+
+  # Post notification
+  def post_notification(title, content, link)
+    # post email notification
+    NotificationsMailer.notification_email(
+      self.email,
+      "[ADP Dashboard] #{title}",
+      content,
+      link
+    ).deliver
+  end
 end
