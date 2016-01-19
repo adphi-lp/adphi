@@ -20,3 +20,6 @@ db/backups/
 
 # added by GitSavvy
 public/system
+
+# added by GitSavvy
+/.source_me

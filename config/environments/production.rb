@@ -77,14 +77,5 @@ Rails.application.configure do
   config.logger.level = Logger.const_get(ENV['LOG_LEVEL'] ? ENV['LOG_LEVEL'].upcase : 'INFO')
   config.log_level    = (ENV['LOG_LEVEL'] ? ENV['LOG_LEVEL'].downcase : 'info').to_sym
 
-  config.action_mailer.smtp_settings = {
-    :authentication => :plain,
-    :address => "smtp.mailgun.org",
-    :port => 587,
-    :domain => ENV['MAILER_DOMAIN'],
-    :user_name => ENV['MAILER_USERNAME'],
-    :password => ENV['MAILER_PASSWORD']
-  }
-
   Rails.application.routes.default_url_options[:host] = 'dashboard.adphi.house'
 end

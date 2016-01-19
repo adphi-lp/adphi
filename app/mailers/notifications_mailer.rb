@@ -1,7 +1,7 @@
 class NotificationsMailer < ActionMailer::Base
   include Resque::Mailer
 
-  default from: "notifications@adphi.house"
+  default from: "adphi-dashboard@mit.edu"
 
   def test_email(email)
   	mail(to: email, subject: 'Test Email')
