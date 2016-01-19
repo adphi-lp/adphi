@@ -81,26 +81,33 @@ class Voucher < ActiveRecord::Base
   #-------------------------
 
   def send_notifications
-    to_state = '#{aasm.to_state}'
+    from_state = aasm.from_state
+    to_state = aasm.to_state
 
-    # If we went to the approved or declined states, notify the requester
-    if (to_state == 'approved' || to_state == 'declined')
-      NotificationsMailer.notification_email(
-          self.brother.email,
-          "[Voucher] Your voucher has been " + to_state,
-          "Use this link to view the voucher.",
-          url_for(self)).deliver
+    if from_state == :draft
+      # upon initial publishing, notify the submitter
+      self.brother.post_notification(
+        "You have submitted voucher \"#{self.title}\". ",
+        "Use the included link to view the voucher. ",
+        url_for(self)
+      )
+    end
 
+    if (to_state == :approved || to_state == :declined)
+      # If we went to the approved or declined states, notify the requester
+      self.brother.post_notification(
+        "Your voucher \"#{self.title}\" has been " + to_state.to_s + ". ",
+        "Use the included link to view the voucher. ",
+        url_for(self)
+      )
     else
-      # send an email to the officers
+      # send an email to the officers whose signatures are currently required
       current_signatures.each do |sig|
-        officer = sig.brother
-
-        NotificationsMailer.notification_email(
-          officer.email,
-          "[Voucher] Voucher request from " + self.brother.name,
-          "Please use this link to view the request and approve/decline.",
-          url_for(self)).deliver
+        sig.brother.post_notification(
+          "Signature request for voucher \"#{self.title}\" from #{self.brother.name}.  ",
+          "Please use the included link to view the request and approve/decline. ",
+          url_for(self)
+        )
       end
     end
   end
@@ -147,11 +154,9 @@ class Voucher < ActiveRecord::Base
         category: :as_treasurer
       )
 
+      send_notifications
+
       promote! while may_promote?
-
-      # At this point, notify the officers...
-      send_notifications()
-
     end
 
     def record_approval
