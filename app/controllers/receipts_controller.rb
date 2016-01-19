@@ -3,7 +3,7 @@ class ReceiptsController < ApplicationController
     @voucher = Voucher.find(params[:voucher_id])
     @receipt = @voucher.receipts.create(receipts_params)
 
-    @errors = @receipt.errors.full_messages("\n") unless @receipt.valid?
+    @errors = @receipt.errors.full_messages unless @receipt.valid?
   end
 
   def destroy
