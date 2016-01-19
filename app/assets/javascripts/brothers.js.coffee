@@ -13,11 +13,6 @@ ready = ->
       form.find('input[name=change]').val(change)
       form.find('input[name=message]').val(message)
 
-      if change > 0
-        form.find('input[type=submit]').val('+' + change)
-      else
-        form.find('input[type=submit]').val(change)
-
       form.show()
 
     $('.kitchen_plus').click ->

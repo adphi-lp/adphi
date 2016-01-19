@@ -1,10 +1,12 @@
 <div class="row">
   <div class="small-12 columns">
     <%= form_tag balance_path(balance), remote: :true, method: :put, class: "balance_form #{balance.kind.to_s}_form" do %>
-      <%= hidden_field_tag :change, '0' %>
       <div class="row collapse">
-        <div class="small-9 columns">
+        <div class="small-7 columns">
           <%= text_field_tag :message, '', placeholder: 'Reasons or comments. ' %>
+        </div>
+        <div class="small-2 columns">
+          <%= text_field_tag :change, '', placeholder: '# of jobs to change. ' %>
         </div>
         <div class="small-3 columns">
           <%= submit_tag "Update", class: "button postfix" %>
