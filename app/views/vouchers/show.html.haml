@@ -2,7 +2,7 @@
   .small-12.columns
     %h2= @voucher.title
     %h3
-      Submitted by #{link_to @voucher.brother.name, @voucher.brother} on #{friendly_date @voucher.created_at}
+      Created by #{link_to @voucher.brother.name, @voucher.brother} on #{friendly_date @voucher.created_at}
 
 %h4 Items
 - if @voucher.draft?
