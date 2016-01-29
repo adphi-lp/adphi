@@ -5,7 +5,7 @@ class LineItem < ActiveRecord::Base
   belongs_to :voucher
 
   validates :title, presence: true, length: {minimum: 3, maximum: 100}
-  validates :amount, presence: true, numericality: true
+  validates :amount, presence: true, numericality: {greater_than: 0}
   validates :purchase_date, presence: true
   validates :budget_type, presence: true, inclusion: BUDGET_NAMES.keys
 
