@@ -14,6 +14,7 @@
           <th>Amount Paid</th>
           <th>Pay Date</th>
           <th>Check #</th>
+          <th>Notes</th>
         </tr>
       </thead>
       <% for v in @vouchers %>
@@ -26,6 +27,7 @@
         <td><%= v.paid_amount if v.approved? %></td>
         <td><%= v.approved_at.to_date.to_s if v.approved? %></td>
         <td><%= v.check_number if v.approved? %></td>
+        <td><%= v.note if v.approved? %></td>
       </tr>
       <% end %>
       </table>
