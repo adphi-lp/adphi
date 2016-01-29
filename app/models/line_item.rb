@@ -2,6 +2,8 @@ class LineItem < ActiveRecord::Base
   include PositionConstants
   include BudgetConstants
 
+  validate :purchase_date_cannot_be_in_the_future
+
   belongs_to :voucher
 
   validates :title, presence: true, length: {minimum: 3, maximum: 100}
@@ -20,4 +22,11 @@ class LineItem < ActiveRecord::Base
   def budget_officer
     BUDGET_OFFICERS[self.budget_type]
   end
+
+  private
+
+    def purchase_date_cannot_be_in_the_future
+      errors.add(:purchase_date, "can't be in the future") if
+        !purchase_date.blank? and purchase_date > Date.today
+    end
 end
