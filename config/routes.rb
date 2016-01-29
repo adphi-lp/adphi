@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get 'line_items/destroy'
 
+  get 'help', to: 'static_pages#help', as: :help
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   # mount the resque

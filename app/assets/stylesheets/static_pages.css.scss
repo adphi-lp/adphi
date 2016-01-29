@@ -13,3 +13,25 @@
     margin: 300px auto;
   }
 }
+
+#static_pages_help {
+	#help_title {
+		margin: 20px;
+	}
+
+	.help_list {
+		ol {
+			font-size: 24px;
+		}
+
+		h4 {
+			font-weight: bold;
+			font-size: 28px;
+		}
+
+		li {
+			padding-bottom: 90px;
+		}
+	}
+
+}

@@ -42,6 +42,8 @@
                 %li= link_to 'My Vouchers', vouchers_path
                 - if current_brother.has_voucher_dashboard?
                   %li= link_to 'Officer View', dashboard_vouchers_path
+          %li
+            %a{:href => help_path} Help
           - if signed_in?
             %li
               %a{:href => sign_out_path} Sign Out
