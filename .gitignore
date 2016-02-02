@@ -23,3 +23,9 @@ public/system
 
 # added by GitSavvy
 /.source_me
+
+# added by GitSavvy
+/config/database.yml
+
+# added by GitSavvy
+/.gitignore
