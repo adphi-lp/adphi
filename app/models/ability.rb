@@ -41,6 +41,8 @@ class Ability
       can :read, Voucher
       can :create, Voucher
       can :approve, Voucher if brother.treasurer?
+      can :edit, Voucher if brother.treasurer?
+      can :update, Voucher if brother.treasurer?
       can :publish, Voucher, brother_id: brother.id
       can :dashboard, Voucher if brother.has_voucher_dashboard?
 

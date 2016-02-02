@@ -1,0 +1,42 @@
+.row.headerblock
+  .small-12.columns
+    %h2 Edit #{@voucher.title}
+    %h3
+      Created by #{link_to @voucher.brother.name, @voucher.brother} on #{friendly_date @voucher.created_at}
+
+= form_for @voucher do |f|
+  - # @voucher.line_items.each do |line_item|
+  - #= f.fields_for :line_items do |fq|
+
+  = f.hidden_field :title, value: @voucher.title
+  -# = f.hidden_field :owner_id, value: @voucher.owner_id
+
+  .row.collapse
+    .small-3.columns
+      Item Name
+    .small-4.columns
+      Budget Type
+    .small-3.columns
+      Purchase Date
+    .small-2.columns 
+      Amount
+
+  - @voucher.line_items.each do |line_item|
+    = f.fields_for :line_items, line_item do |fq|
+
+      -# = f.hidden_field :id, value: line_item.id
+      .row.collapse.inline-form
+        .small-3.columns
+          = fq.text_field :title
+        .small-4.columns
+          = fq.select :budget_type, line_item.restricted_budget_type_options
+        .small-3.columns
+          = fq.text_field :purchase_date, placeholder: 'Purchase date. ', class: "purchase_date_input"
+        .small-2.columns
+          = fq.text_field :amount, placeholder: '$ amount. '
+  
+  .row.collapse.inline-form
+    .small-6.columns
+      = submit_tag 'Confirm Changes', class: 'button postfix', data: {confirm: 'Do you really want to modify this voucher?'}
+    .small-6.columns
+      = link_to 'Cancel', voucher_path(@voucher), class: 'button alert postfix'

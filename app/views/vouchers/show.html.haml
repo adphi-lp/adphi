@@ -53,6 +53,8 @@
         signed.
     - if sig.pending? && sig.brother == current_brother
       - if @voucher.pending_treasurer_signature?
+        = link_to 'Modify Voucher', edit_voucher_path(@voucher)
+
         = form_tag approve_voucher_path(@voucher), method: :post do
           .row.collapse.inline-form
             .small-12.colums

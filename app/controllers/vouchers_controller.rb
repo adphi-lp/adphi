@@ -14,6 +14,23 @@ class VouchersController < ApplicationController
     @vouchers = current_brother.vouchers.all
   end
 
+  # Currently, only the treasurer should be able to edit and update the voucher
+  def edit
+    @voucher = Voucher.find(params[:id])
+  end
+
+  def update
+    @voucher = Voucher.find(params[:id])
+
+    if @voucher.update(voucher_params)
+      flash[:success] = "You've successfully modified the voucher."
+      redirect_to @voucher
+    else
+      flash[:alert] = (["Can't modify voucher: "] + @voucher.errors.full_messages).join("\n")
+      render 'edit'
+    end
+  end
+
   def show
     @voucher = Voucher.find(params[:id])
 
@@ -91,6 +108,6 @@ class VouchersController < ApplicationController
 
   private
     def voucher_params
-      params.require(:voucher).permit(:title, :owner_id)
+      params.require(:voucher).permit(:title, :owner_id, line_items_attributes: [:id, :title, :amount, :purchase_date, :budget_type])
     end
 end

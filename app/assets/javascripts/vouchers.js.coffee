@@ -6,8 +6,9 @@ nowTemp = new Date()
 now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0)
 
 ready = ->
-  if $('body#vouchers_show').length > 0
-    $('input[name=line_item\\\[purchase_date\\\]]').fdatepicker({
+  if $('body#vouchers_show, body#vouchers_edit, body#vouchers_update').length > 0
+    console.log("hello")
+    $('input[name=line_item\\\[purchase_date\\\]], input.purchase_date_input').fdatepicker({
     	format: 'yyyy-mm-dd',
     	onRender: (date) ->
         	# Disable dates that are past the current date (no future purchases)

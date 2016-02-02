@@ -23,6 +23,10 @@ class LineItem < ActiveRecord::Base
     BUDGET_OFFICERS[self.budget_type]
   end
 
+  def restricted_budget_type_options
+    (BUDGET_NAMES.map { |k, v| [v, k] if BUDGET_OFFICERS[k] == self.budget_officer }).compact
+  end
+
   private
 
     def purchase_date_cannot_be_in_the_future

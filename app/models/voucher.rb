@@ -13,6 +13,8 @@ class Voucher < ActiveRecord::Base
 
   validates :title, presence: true, length: {minimum: 5, maximum: 100}
 
+  accepts_nested_attributes_for :line_items
+
   enum state: [
     :draft,
     :pending_officer_signatures,
