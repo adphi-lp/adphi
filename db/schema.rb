@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160129200639) do
+ActiveRecord::Schema.define(version: 20160202204514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,8 +47,8 @@ ActiveRecord::Schema.define(version: 20160129200639) do
     t.datetime "updated_at"
     t.boolean  "current"
     t.string   "kerberos"
-    t.integer  "position"
     t.boolean  "admin"
+    t.text     "positions"
   end
 
   add_index "brothers", ["pledge_class_id"], name: "index_brothers_on_pledge_class_id", using: :btree

@@ -3,8 +3,6 @@ class Signature < ActiveRecord::Base
   include PositionConstants
   include BudgetConstants
 
-  before_validation :infer_position
-
   enum position: POSITIONS
   enum state: [:pending, :signed, :declined]
   enum category: [:as_officer, :as_president, :as_treasurer]
@@ -37,10 +35,6 @@ class Signature < ActiveRecord::Base
   end
 
   private
-
-    def infer_position
-      self.position = brother.position
-    end
 
     def notify_signable
       signable.send(declined? ? :signature_declined : :signature_signed, self)

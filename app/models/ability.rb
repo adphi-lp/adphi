@@ -40,17 +40,17 @@ class Ability
 
       can :read, Voucher
       can :create, Voucher
-      can :approve, Voucher if brother.treasurer?
-      can :edit, Voucher if brother.treasurer?
-      can :update, Voucher if brother.treasurer?
+      can :approve, Voucher if brother.has_position?(:treasurer)
+      can :edit, Voucher if brother.has_position?(:treasurer)
+      can :update, Voucher if brother.has_position?(:treasurer)
       can :publish, Voucher, brother_id: brother.id
       can :dashboard, Voucher if brother.has_voucher_dashboard?
 
-      if brother.kitchen_manager?
+      if brother.has_position?(:kitchen_manager)
         can :update, Balance, kind: "kitchen"
       end
 
-      if brother.house_manager?
+      if brother.has_position?(:house_manager)
         can :update, Balance, kind: "house"
       end
 

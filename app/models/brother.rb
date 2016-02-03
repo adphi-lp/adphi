@@ -3,9 +3,6 @@ class Brother < ActiveRecord::Base
 
   scope :current, -> { where(current: true) }
 
-  # the order of this must NOT be changed! new entries MUST go at the end
-  enum position: POSITIONS
-
   belongs_to :pledge_class
 
   has_many :shortlogs, dependent: :destroy
@@ -21,13 +18,21 @@ class Brother < ActiveRecord::Base
   validates :pledge_class, presence: true
   validates :current, :inclusion => {:in => [true, false]}
 
+  serialize :positions
+
+  # FIXME: This only returns one Brother in case of multiple occupants of the same office
   def self.officer(position)
-    find_by!(position: self.positions[position])
+    officer = self.all.detect { |b| b.has_position?(position) }
+    raise ActiveRecord::RecordNotFound, "Cannot find Brother with position " + position.to_s + "." if officer.nil?
+    officer
+  end
+
+  def has_position?(pos)
+    positions.include?(pos)
   end
 
   def has_voucher_dashboard?
-    president? || treasurer? ||
-    (position.present? && (Signature::POSITIONS_WITH_BUDGET.include? position.to_sym))
+    (Signature::POSITIONS_WITH_BUDGET + [:president, :treasurer]).detect { |p| has_position?(p) }.present?
   end
 
   # Fetch balances

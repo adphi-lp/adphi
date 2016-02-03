@@ -1,7 +1,7 @@
 <div class="row headerblock">
   <div class="small-12 columns">
     <h2>Brother <%= @brother.name %></h2>
-    <h3>Pledge Class <%= @brother.pledge_class.name %>, ΛΦ '<%= two_digit_year(@brother) %><%= ", " + Brother::POSITION_NAMES[Brother.positions[@brother.position]] unless @brother.position.nil? %>
+    <h3>Pledge Class <%= @brother.pledge_class.name %>, ΛΦ '<%= two_digit_year(@brother) %><%= ", " + @brother.positions.map { |p| Brother::POSITION_NAMES[p] }.join(", ") unless @brother.positions.empty? %>
     </h3>
   </div>
 </div>

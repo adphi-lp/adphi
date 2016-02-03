@@ -21,25 +21,25 @@ module PositionConstants
     :literary_chairman
   ]
 
-  POSITION_NAMES = [
-    "President",
-    "Vice President",
-    "Treasurer",
-    "Secretary",
-    "House Manager",
-    "Kitchen Manager",
-    "Social Chairman",
-    "Rush Chairman",
-    "Pledge Trainer",
-    "Brotherhood",
-    "Academic Chairman",
-    "Athletic Chairman",
-    "Alumni Relations Chairman",
-    "Community Relations Chairman",
-    "Historian",
-    "Fraternity Representative",
-    "Society Representative",
-    "Critic",
-    "Literary Chairman"
-  ]
+  POSITION_NAMES = {
+    president: "President",
+    vice_president: "Vice President",
+    treasurer: "Treasurer",
+    secretary: "Secretary",
+    house_manager: "House Manager",
+    kitchen_manager: "Kitchen Manager",
+    social_chairman: "Social Chairman",
+    rush_chairman: "Rush Chairman",
+    pledge_trainer: "Pledge Trainer",
+    brotherhood_chairman: "Brotherhood Chairman",
+    academic_chairman: "Academic Chairman",
+    athletic_chairman: "Athletic Chairman",
+    alumni_relations_chairman: "Alumni Relations Chairman",
+    community_relations_chairman: "Community Relations Chairman",
+    historian: "Historian",
+    fraternity_representative: "Fraternity Representative",
+    society_representative: "Society Representative",
+    critic: "Critic",
+    literary_chairman: "Literary Chairman"
+  }
 end

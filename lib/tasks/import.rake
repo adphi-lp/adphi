@@ -1,6 +1,6 @@
 namespace :import do
   desc "Import everything that you need for developing. "
-  task all: [:pledge_classes, :brothers, :officers] do
+  task all: [:pledge_classes, :brothers] do
     puts "Imported. "
   end
 
@@ -13,11 +13,12 @@ namespace :import do
     Brother.destroy_all
 
     lines.each do |l|
-      name, year, pc, k = l.split(',')
+      name, year, pc, k, pos = l.split(',')
       name.strip!
       year = year.to_i
       pc.strip!
       k.strip!
+      positions = pos.strip.split(',').map(&:strip).map(&:to_sym)
 
       if /@/ =~ k
         k = k[0...-8]
@@ -29,20 +30,29 @@ namespace :import do
         puts 'CANNOT FIND PLEDGE CLASS ' + pc
       end
 
-      Brother.create({
+      Brother.create!({
         name: name,
         year: year,
         pledge_class_id: ppc.id,
-        kerberos: k
+        kerberos: k, 
+        positions: positions
       })
 
       puts 'Created ' + name
+    end
+
+    ['Jiahao Li'].each do |a|
+      brother = Brother.find_by!(name: a)
+      brother.admin = true
+      brother.save!
+      puts "Gave system admin privilege to #{a}"
     end
   end
 
   desc "Import some plege classes for developing convenience. "
   task pledge_classes: :environment do
     classes = {
+      'Nomads' => 2015,
       'Wolfpack' => 2014,
       'Muses' => 2013,
       'Atlas' => 2012,
@@ -60,43 +70,6 @@ namespace :import do
       })
 
       puts 'Created ' + n
-    end
-  end
-
-  desc "Assign brothers to some positions"
-  task officers: :environment do
-    officers = {
-      'Alec Heifetz' => :president,
-      'Robi Bhattacharjee' => :vice_president,
-      'Robert Burklund' => :secretary,
-      'Samuel Matthews' => :house_manager,
-      'James Deng' => :kitchen_manager,
-      'Ryan King-Shepard' => :social_chairman,
-      'Tomohiro Soejima' => :academic_chairman,
-      'Paolo Gentili' => :athletic_chairman,
-      'Richard Hsu' => :alumni_relations_chairman,
-      'Hao Xing' => :community_relations_chairman,
-      'Sasha Chaykovskyy' => :fraternity_representative,
-      'Sasha Chaykovskyy' => :society_representative,
-      'Vincent Anioke' => :literary_chairman,
-      'Matthew Vernacchia' => :critic,
-      'Richard Hsu' => :treasurer,
-    }
-
-    officers.each do |k, v|
-      raise unless Brother::POSITIONS.include?(v)
-      brother = Brother.find_by!(name: k)
-      brother.position = Brother.positions[v]
-      brother.save!
-
-      puts "Appointed #{k} as #{v.to_s.humanize}"
-    end
-
-    ['Jiahao Li'].each do |a|
-      brother = Brother.find_by!(name: a)
-      brother.admin = true
-      brother.save!
-      puts "Gave system admin privilege to #{a}"
     end
   end
 end

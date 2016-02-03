@@ -140,20 +140,23 @@ class Voucher < ActiveRecord::Base
       positions.each do |p|
         signatures.create!(
           brother_id: Brother.officer(p).id,
-          category: :as_officer
+          category: :as_officer, 
+          position: p
         )
       end
 
       # president signature
       signatures.create!(
         brother_id: Brother.officer(:president).id,
-        category: :as_president
+        category: :as_president, 
+        position: :president
       )
 
       # treasurer signature
       signatures.create!(
         brother_id: Brother.officer(:treasurer).id,
-        category: :as_treasurer
+        category: :as_treasurer, 
+        position: :treasurer
       )
 
       send_notifications

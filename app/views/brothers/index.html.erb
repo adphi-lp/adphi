@@ -9,7 +9,7 @@
       <div class="row">
         <div class="small-12 column">
           <a href="<%= brother_path(b) %>">
-            <p>Brother <span class="keywords"><%= b.name %></span>, ΛΦ '<%= two_digit_year b %><%= ", " + Brother::POSITION_NAMES[Brother.positions[b.position]] unless b.position.nil? %></p>
+            <p>Brother <span class="keywords"><%= b.name %></span>, ΛΦ '<%= two_digit_year b %><%= ", " + b.positions.map { |p| Brother::POSITION_NAMES[p] }.join(", ") unless b.positions.empty? %></p>
             <p>Present at <span class="keywords"><%= @presences[b.id] || 0 %></span> meetings.</p>
             <p>
               Kitchen job balance <span class="keywords" id="kitchen_job_balance_<%= b.id %>"><%= @balances[b.id][:kitchen].value %></span>,
