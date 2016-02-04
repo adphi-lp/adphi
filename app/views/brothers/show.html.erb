@@ -29,7 +29,6 @@
   <% end %>
 </div>
 
-<p><%= @brother.email %></p>
-
-<p>Send a test email to yourself</p>
-<%= link_to "Send Email", controller: "brothers", action: "test_email", id: @brother %>
+<div id="actions">
+  <p><%= link_to "Click here", controller: "brothers", action: "test_email", id: @brother %> to send a test email to yourself at <%= mail_to @brother.email %>, to verify that that email notifications from the dashboard can reach you successfully. </p> 
+</div>
