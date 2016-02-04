@@ -30,5 +30,7 @@
 </div>
 
 <div id="actions">
-  <p><%= link_to "Click here", controller: "brothers", action: "test_email", id: @brother %> to send a test email to yourself at <%= mail_to @brother.email %>, to verify that that email notifications from the dashboard can reach you successfully. </p> 
+  <% if @brother == current_brother %>
+    <p><%= link_to "Click here", controller: "brothers", action: "test_email", id: @brother %> to send a test email to yourself at <%= mail_to @brother.email %>, to verify that that email notifications from the dashboard can reach you successfully. </p> 
+  <% end %>
 </div>
