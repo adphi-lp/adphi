@@ -45,6 +45,12 @@ ready = ->
     $('.house_minus').click ->
       show_form($(this), '.house_form', -1, 'missing house job')
 
+    $('.house_debt_plus').click ->
+      show_form($(this), '.house_debt_form', 1, 'making up')
+
+    $('.house_debt_minus').click ->
+      show_form($(this), '.house_debt_form', -1, 'missing work week/weekend')
+
     $('.social_plus').click ->
       show_form($(this), '.social_form', 1, 'making up')
 

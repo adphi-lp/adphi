@@ -13,6 +13,7 @@ class BrothersController < ApplicationController
         {
           kitchen: bs.select { |x| x.kitchen? } [0] || Brother.find(b).balance(:kitchen),
           house: bs.select { |x| x.house? } [0] || Brother.find(b).balance(:house),
+          house_debt: bs.select { |x| x.house_debt? } [0] || Brother.find(b).balance(:house_debt),
           social: bs.select { |x| x.social? } [0] || Brother.find(b).balance(:social)
         }
       ]

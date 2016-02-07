@@ -14,6 +14,7 @@
             <p>
               Kitchen job balance <span class="keywords" id="kitchen_job_balance_<%= b.id %>"><%= @balances[b.id][:kitchen].value %></span>,
               house job balance <span class="keywords" id="house_job_balance_<%= b.id %>"><%= @balances[b.id][:house].value %></span>,
+              work week/weekend debt balance <span class="keywords" id="house_debt_job_balance_<%= b.id %>"><%= @balances[b.id][:house_debt].value %></span>,
               social job balance <span class="keywords" id="social_job_balance_<%= b.id %>"><%= @balances[b.id][:social].value %></span>
             </p>
           </a>
@@ -28,11 +29,12 @@
 
       <%= render 'balance_form', balance: @balances[b.id][:kitchen] %>
       <%= render 'balance_form', balance: @balances[b.id][:house] %>
+      <%= render 'balance_form', balance: @balances[b.id][:house_debt] %>
       <%= render 'balance_form', balance: @balances[b.id][:social] %>
 
-      <div class="row">
-        <div class="small-12 columns">
-          <% if can? :update, @balances[b.id][:kitchen] %>
+      <% if can? :update, @balances[b.id][:kitchen] %>
+        <div class="row">
+          <div class="small-12 columns">
             <p class="action"><%= link_to '+1.5', 'javascript: void(0); ', class: 'kitchen_plus_one_half' %></p>
             <p class="action"><%= link_to '+1', 'javascript: void(0); ', class: 'kitchen_plus' %></p>
             <p class="action"><%= link_to '+0.5', 'javascript: void(0); ', class: 'kitchen_plus_half' %></p>
@@ -41,17 +43,33 @@
             <p class="action"><%= link_to '-0.5', 'javascript: void(0); ', class: 'kitchen_minus_half' %></p>
             <p class="action"><%= link_to '-1', 'javascript: void(0); ', class: 'kitchen_minus' %></p>
             <p class="action"><%= link_to 'Kitchen-1.5', 'javascript: void(0); ', class: 'kitchen_minus_one_half' %></p>
-          <% end %>
-          <% if can? :update, @balances[b.id][:house] %>
+          </div>
+        </div>
+      <% end %>
+      <% if can? :update, @balances[b.id][:house] %>
+        <div class="row">
+          <div class="small-12 columns">
             <p class="action"><%= link_to '+1', 'javascript: void(0); ', class: 'house_plus' %></p>
             <p class="action"><%= link_to 'House-1', 'javascript: void(0); ', class: 'house_minus' %></p>
-          <% end %>
-          <% if can? :update, @balances[b.id][:social] %>
+          </div>
+        </div>
+      <% end %>
+      <% if can? :update, @balances[b.id][:house_debt] %>
+        <div class="row">
+          <div class="small-12 columns">
+            <p class="action"><%= link_to '+1', 'javascript: void(0); ', class: 'house_debt_plus' %></p>
+            <p class="action"><%= link_to 'Work Week/Weekend Debt-1', 'javascript: void(0); ', class: 'house_debt_minus' %></p>
+          </div>
+        </div>
+      <% end %>
+      <% if can? :update, @balances[b.id][:social] %>
+        <div class="row">
+          <div class="small-12 columns">
             <p class="action"><%= link_to '+1', 'javascript: void(0); ', class: 'social_plus' %></p>
             <p class="action"><%= link_to 'Social-1', 'javascript: void(0); ', class: 'social_minus' %></p>
-          <% end %>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
   <% end %>
   </div>
