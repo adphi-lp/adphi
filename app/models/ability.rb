@@ -52,6 +52,7 @@ class Ability
 
       if brother.has_position?(:house_manager)
         can :update, Balance, kind: "house"
+        can :update, Balance, kind: "house_debt"
       end
 
       # TODO who manages social jobs?

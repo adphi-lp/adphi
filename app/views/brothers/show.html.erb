@@ -10,6 +10,7 @@
   <div class="small-12 columns entry">
     <p class="noindent">Kitchen Job Balance: <span class="keywords"><%= @brother.balance(:kitchen).value %></span></p>
     <p class="noindent">House Job Balance: <span class="keywords"><%= @brother.balance(:house).value %></span></p>
+    <p class="noindent">Work Week/Weekend Debt Balance: <span class="keywords"><%= @brother.balance(:house_debt).value %></span></p>
     <p class="noindent">Social Job Balance: <span class="keywords"><%= @brother.balance(:social).value %></span></p>
   </div>
 </div>
