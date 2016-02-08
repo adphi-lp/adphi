@@ -43,7 +43,7 @@ RailsAdmin.config do |config|
       hide
     end
 
-    configure :position do
+    configure :positions do
       searchable false
     end
   end
