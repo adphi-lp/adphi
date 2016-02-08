@@ -21,7 +21,7 @@ class Shortlog < ActiveRecord::Base
         creator = Brother.find(content[:creator_id])
         meeting = Meeting.find(content[:meeting_id])
         status = content[:status]
-        entry[:description] = "[[#{creator.name}]] changed your attendence of [[#{meeting.name}]] on [[#{ApplicationController.helpers.friendly_date(meeting.created_at)}]] at [[#{ApplicationController.helpers.friendly_time(meeting.created_at)}]] to [[#{status.to_s.capitalize}]]"
+        entry[:description] = "[[#{creator.name}]] changed his attendence of [[#{meeting.name}]] on [[#{ApplicationController.helpers.friendly_date(meeting.created_at)}]] at [[#{ApplicationController.helpers.friendly_time(meeting.created_at)}]] to [[#{status.to_s.capitalize}]]"
       when :balance
         creator = Brother.find(content[:creator_id])
         balance_title = "#{content[:kind].to_s.split('_').map(&:capitalize).join(' ')} Job Balance"
