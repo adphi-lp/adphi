@@ -54,6 +54,8 @@
     - if sig.pending? && sig.brother == current_brother
       - if @voucher.pending_treasurer_signature?
         = link_to 'Modify Voucher', edit_voucher_path(@voucher)
+        |
+        = link_to 'Export Voucher', export_voucher_path(@voucher), target: "_blank"
 
         = form_tag approve_voucher_path(@voucher), method: :post do
           .row.collapse.inline-form

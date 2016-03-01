@@ -1,0 +1,75 @@
+<div id="vouchers_export">
+	<h1>DISBURSEMENT VOUCHER</h1>
+
+	<h2>PAYEE INFORMATION</h2>
+
+	<table style="width:100%">
+		<col width="20%">
+		<col width="80%">
+		<tr>
+			<th>Submission Date</th>
+			<th>Payable To</th>		
+		</tr>
+		<tr>
+			<td><%= @voucher.created_at.strftime("%D") %></td>
+			<td><%= @voucher.brother.name %></td>		
+		</tr>
+	</table>
+
+	<h2>EXPENSE ITEMIZATION</h2>
+
+	<table style="width:100%">
+		<col width="20%">
+		<col width="40%">
+		<col width="20%">
+		<col width="20%">
+		<tr>
+			<th>Date Incurred</th>
+			<th>Description</th>
+			<th>Amount</th>
+			<th>Account</th>
+		</tr>
+		<% @voucher.line_items.each do |line_item| %>
+		<tr>
+			<td><%= line_item.purchase_date.strftime("%D") %></td>
+			<td><%= line_item.title %></td>
+			<td class="amount">$<%= line_item.amount %></td>
+			<td><%= line_item.budget_type_name %></td>
+		</tr>
+		<% end %>
+		<tr class="total_row">
+			<td class="first"></td>
+			<td class="total_el">TOTAL</td>
+			<td>$<%= @voucher.total_amount %></td>
+			<td class="last"></td>
+		</tr>
+	</table>
+
+	<h2>AUTHORIZATION</h2>
+	
+	<table style="width:100%">
+		<col width="50%">
+		<col width="25%">
+		<col width="25%">
+		<tr>
+			<th>Officer(s)</th>
+			<th>President</th>
+			<th>Treasurer</th>
+		</tr>
+		<tr>
+			<td>Approved by 
+				<% @voucher.signatures.each do |sig| %>
+					<% if sig.category == "as_officer" %>
+						<%= sig.brother.name %> (<%= sig.position.titleize %>), 
+					<% end %>
+				<% end %>
+			</td>
+			<td>Approved by
+				<%= Brother.officer(:president).name %> (President)
+			</td>
+			<td>
+				__________________________
+			</td>
+		</tr>
+	</table>
+</div>
