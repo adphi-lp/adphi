@@ -40,6 +40,7 @@ class Ability
 
       can :read, Voucher
       can :create, Voucher
+      can :export, Voucher
       can :approve, Voucher if brother.has_position?(:treasurer)
       can :edit, Voucher if brother.has_position?(:treasurer)
       can :update, Voucher if brother.has_position?(:treasurer)

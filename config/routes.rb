@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     member do
       post 'publish'
       post 'approve'
+      get 'export'
     end
 
     collection do

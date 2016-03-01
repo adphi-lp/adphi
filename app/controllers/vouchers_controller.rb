@@ -106,6 +106,13 @@ class VouchersController < ApplicationController
     redirect_to voucher_path(@voucher), flash: {success: 'You\'ve approved this voucher. '}
   end
 
+  # Make a printable page of the voucher...
+  def export
+    @voucher = Voucher.find(params[:id])
+    
+    render 'export'
+  end
+
   private
     def voucher_params
       params.require(:voucher).permit(:title, :owner_id, line_items_attributes: [:id, :title, :amount, :purchase_date, :budget_type])
