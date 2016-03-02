@@ -44,12 +44,6 @@
                   %li= link_to 'Officer View', dashboard_vouchers_path
           %li
             %a{:href => help_path} Help
-          - if signed_in?
-            %li
-              %a{:href => sign_out_path} Sign Out
-          - else
-            %li
-              %a{:href => sign_in_path} Sign In
     .container
       .row
         #summary.small-12.columns

@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :store_location
+  before_action :auto_sign_in
 
   private
 
@@ -21,6 +22,16 @@ class ApplicationController < ActionController::Base
     def require_signed_in
       unless signed_in?
         redirect_back root_url, flash: {alert: 'You need to be signed in. '}
+      end
+    end
+
+    def auto_sign_in
+      if self.controller_name == 'sessions'
+        return
+      end
+
+      unless signed_in? || flash[:sign_in_failed]
+        redirect_to sign_in_path
       end
     end
 
