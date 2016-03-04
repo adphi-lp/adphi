@@ -29,7 +29,7 @@
             <span class="keywords"><%= meeting[:excused] %></span> excused,
             <span class="keywords"><%= meeting[:tardy] %></span> tardy,
             <span class="keywords"><%= meeting[:absent] %></span> absent,
-            attendence rate <span class="keywords"><%= number_to_percentage 100 * meeting[:rate] %></span>.
+            attendence rate <span class="keywords"><%= number_to_percentage 100 * meeting[:rate], precision: 0 %></span>.
           </p>
           <% if can? :destroy, meeting[:meeting] %>
             <p class="action"><%= link_to 'Delete', meeting_path(meeting[:meeting]), method: :delete, remote: true, data: {confirm: "Do you really want to delete #{meeting[:meeting].name}? "} %></p>
