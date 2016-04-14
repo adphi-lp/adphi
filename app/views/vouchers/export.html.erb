@@ -1,6 +1,35 @@
 <div id="vouchers_export">
 	<h1>DISBURSEMENT VOUCHER</h1>
 
+	<table id="steps_table" style="width:100%">
+		<col width="60%">
+		<col width="40%">
+		<tr>
+			<td id="instructions">
+				<ol>
+					<li>
+						Staple receipts to the <strong>back</strong> of the form.
+					</li>
+					<li>
+						Have <strong>officer(s)</strong> and <strong>President</strong> sign.
+					</li>
+					<li>
+						Put voucher in <strong>Treasurer's Mailbox.</strong>
+					</li>
+				</ol>
+			</td>
+
+			<td id="v_container">
+				<table style="width:100%">
+					<col width="80%">
+					<col width="20%">
+					<td>V</td>
+					<td></td>
+				</table>
+			</td>
+		</tr>
+	</table>
+
 	<h2>PAYEE INFORMATION</h2>
 
 	<table style="width:100%">
@@ -45,6 +74,8 @@
 		</tr>
 	</table>
 
+	<div class="stick_bottom">
+
 	<h2>AUTHORIZATION</h2>
 	
 	<table style="width:100%">
@@ -72,4 +103,33 @@
 			</td>
 		</tr>
 	</table>
+
+	<h2>TREASURY</h2>
+
+	<table id="treasury_table" style="width:100%">
+		<col width="20%">
+		<col width="20%">
+		<col width="20%">
+		<col width="20%">
+		<col width="20%">
+
+		<tr>
+			<th class="no_border"></th>
+			<th>Date</th>
+			<th>Check Number</th>
+			<th>Amount</th>
+			<th class="no_border"></th>
+		</tr>
+
+		<tr>
+			<td class="no_border"></td>
+			<td><%= @voucher.created_at.strftime("%D") %></td>
+			<td><%= @voucher.check_number %></td>
+			<td>$<%= @voucher.total_amount %></td>
+			<td class="no_border"></td>
+		</tr>
+
+	</table>
+
+	</div>
 </div>

@@ -28,6 +28,13 @@
 }
 
 #vouchers_export {
+	div.stick_bottom {
+		position: fixed;
+		bottom: 0;
+
+		page-break-after: always;
+	}
+
 	table td{
 		font-size: 12px;
 	}
@@ -49,6 +56,30 @@
 
 		td.total_el {
 			text-align: right;
+		}
+	}
+
+	table#steps_table {
+		border: none;
+
+		td {
+			border: none;
+		}
+
+		table {
+			border: 1px solid black;
+
+			td {
+				border: 1px solid black;
+			}
+		}
+	}
+
+	table#treasury_table {
+		border: none;
+
+		td.no_border, th.no_border {
+			border: none;
 		}
 	}
 }
