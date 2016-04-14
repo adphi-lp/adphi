@@ -18,7 +18,8 @@ module PositionConstants
     :fraternity_representative,
     :society_representative,
     :critic,
-    :literary_chairman
+    :literary_chairman, 
+    :house_job_checker
   ]
 
   POSITION_NAMES = {
@@ -40,6 +41,7 @@ module PositionConstants
     fraternity_representative: "Fraternity Representative",
     society_representative: "Society Representative",
     critic: "Critic",
-    literary_chairman: "Literary Chairman"
+    literary_chairman: "Literary Chairman", 
+    house_job_checker: "House Job Checker"
   }
 end

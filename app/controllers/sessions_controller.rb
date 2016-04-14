@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       return redirect_back root_path, flash: {success: "Welcome, Brother #{brother.name}. "}
     end
 
-    redirect_to 'https://jiahaoli.scripts.mit.edu:444/bitstation/authenticate/?auth_token=' + generate_auth_token
+    redirect_to 'https://jiahaoli.scripts.mit.edu:444/bitstation/authenticate/?auth_token=' + generate_auth_token + '&redirect_host=' + Rack::Utils.escape(root_url(port: request.port))
   end
 
   def authenticate
@@ -26,6 +26,7 @@ class SessionsController < ApplicationController
       brother = Brother.find_by(kerberos: result["kerberos"])
 
       if brother.nil?
+        flash[:sign_in_failed] = true
         redirect_to sessions_fail_url(message: 'Your Kerberos ID does not seem to be a brother\'s')
       else
         sign_in brother
@@ -36,6 +37,7 @@ class SessionsController < ApplicationController
 
   def fail
     flash[:alert] = params[:message]
+    flash[:sign_in_failed] = true
     redirect_to root_path
   end
 
