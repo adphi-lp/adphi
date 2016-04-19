@@ -1,135 +1,153 @@
 <div id="vouchers_export">
-	<h1>DISBURSEMENT VOUCHER</h1>
+	<div class="export_page">
 
-	<table id="steps_table" style="width:100%">
-		<col width="60%">
-		<col width="40%">
-		<tr>
-			<td id="instructions">
-				<ol>
-					<li>
-						Staple receipts to the <strong>back</strong> of the form.
-					</li>
-					<li>
-						Have <strong>officer(s)</strong> and <strong>President</strong> sign.
-					</li>
-					<li>
-						Put voucher in <strong>Treasurer's Mailbox.</strong>
-					</li>
-				</ol>
-			</td>
+		<h1>DISBURSEMENT VOUCHER</h1>
 
-			<td id="v_container">
-				<table style="width:100%">
-					<col width="80%">
-					<col width="20%">
-					<td>V</td>
-					<td></td>
-				</table>
-			</td>
-		</tr>
-	</table>
+		<table id="steps_table" style="width:100%">
+			<col width="60%">
+			<col width="40%">
+			<tr>
+				<td id="instructions">
+					<ol>
+						<li>
+							Staple receipts to the <strong>back</strong> of the form.
+						</li>
+						<li>
+							Have <strong>officer(s)</strong> and <strong>President</strong> sign.
+						</li>
+						<li>
+							Put voucher in <strong>Treasurer's Mailbox.</strong>
+						</li>
+					</ol>
+				</td>
 
-	<h2>PAYEE INFORMATION</h2>
+				<td id="v_container">
+					<table style="width:100%">
+						<col width="80%">
+						<col width="20%">
+						<td>V</td>
+						<td></td>
+					</table>
+				</td>
+			</tr>
+		</table>
 
-	<table style="width:100%">
-		<col width="20%">
-		<col width="80%">
-		<tr>
-			<th>Submission Date</th>
-			<th>Payable To</th>		
-		</tr>
-		<tr>
-			<td><%= @voucher.created_at.strftime("%D") %></td>
-			<td><%= @voucher.brother.name %></td>		
-		</tr>
-	</table>
+		<h2>PAYEE INFORMATION</h2>
 
-	<h2>EXPENSE ITEMIZATION</h2>
+		<table style="width:100%">
+			<col width="20%">
+			<col width="80%">
+			<tr>
+				<th>Submission Date</th>
+				<th>Payable To</th>		
+			</tr>
+			<tr>
+				<td><%= @voucher.created_at.strftime("%D") %></td>
+				<td><%= @voucher.brother.name %></td>		
+			</tr>
+		</table>
 
-	<table style="width:100%">
-		<col width="20%">
-		<col width="40%">
-		<col width="20%">
-		<col width="20%">
-		<tr>
-			<th>Date Incurred</th>
-			<th>Description</th>
-			<th>Amount</th>
-			<th>Account</th>
-		</tr>
-		<% @voucher.line_items.each do |line_item| %>
-		<tr>
-			<td><%= line_item.purchase_date.strftime("%D") %></td>
-			<td><%= line_item.title %></td>
-			<td class="amount">$<%= line_item.amount %></td>
-			<td><%= line_item.budget_type_name %></td>
-		</tr>
-		<% end %>
-		<tr class="total_row">
-			<td class="first"></td>
-			<td class="total_el">TOTAL</td>
-			<td>$<%= @voucher.total_amount %></td>
-			<td class="last"></td>
-		</tr>
-	</table>
+		<h2>EXPENSE ITEMIZATION</h2>
 
-	<div class="stick_bottom">
+		<table style="width:100%">
+			<col width="20%">
+			<col width="40%">
+			<col width="20%">
+			<col width="20%">
+			<tr>
+				<th>Date Incurred</th>
+				<th>Description</th>
+				<th>Amount</th>
+				<th>Account</th>
+			</tr>
+			<% @voucher.line_items.each do |line_item| %>
+			<tr>
+				<td><%= line_item.purchase_date.strftime("%D") %></td>
+				<td><%= line_item.title %></td>
+				<td class="amount">$<%= line_item.amount %></td>
+				<td><%= line_item.budget_type_name %></td>
+			</tr>
+			<% end %>
+			<tr class="total_row">
+				<td class="first"></td>
+				<td class="total_el">TOTAL</td>
+				<td>$<%= @voucher.total_amount %></td>
+				<td class="last"></td>
+			</tr>
+		</table>
 
-	<h2>AUTHORIZATION</h2>
-	
-	<table style="width:100%">
-		<col width="50%">
-		<col width="25%">
-		<col width="25%">
-		<tr>
-			<th>Officer(s)</th>
-			<th>President</th>
-			<th>Treasurer</th>
-		</tr>
-		<tr>
-			<td>Approved by 
-				<% @voucher.signatures.each do |sig| %>
-					<% if sig.category == "as_officer" %>
-						<%= sig.brother.name %> (<%= sig.position.titleize %>), 
-					<% end %>
-				<% end %>
-			</td>
-			<td>Approved by
-				<%= Brother.officer(:president).name %> (President)
-			</td>
-			<td>
-				__________________________
-			</td>
-		</tr>
-	</table>
+		<div class="stick_bottom">
 
-	<h2>TREASURY</h2>
+			<h2>AUTHORIZATION</h2>
+			
+			<table style="width:100%">
+				<col width="50%">
+				<col width="25%">
+				<col width="25%">
+				<tr>
+					<th>Officer(s)</th>
+					<th>President</th>
+					<th>Treasurer</th>
+				</tr>
+				<tr>
+					<td>Approved by 
+						<% @voucher.signatures.each do |sig| %>
+							<% if sig.category == "as_officer" %>
+								<%= sig.brother.name %> (<%= sig.position.titleize %>), 
+							<% end %>
+						<% end %>
+					</td>
+					<td>Approved by
+						<%= Brother.officer(:president).name %> (President)
+					</td>
+					<td>
+						__________________________
+					</td>
+				</tr>
+			</table>
 
-	<table id="treasury_table" style="width:100%">
-		<col width="20%">
-		<col width="20%">
-		<col width="20%">
-		<col width="20%">
-		<col width="20%">
+			<h2>TREASURY</h2>
 
-		<tr>
-			<th class="no_border"></th>
-			<th>Date</th>
-			<th>Check Number</th>
-			<th>Amount</th>
-			<th class="no_border"></th>
-		</tr>
+			<table id="treasury_table" style="width:100%">
+				<col width="20%">
+				<col width="20%">
+				<col width="20%">
+				<col width="20%">
+				<col width="20%">
 
-		<tr>
-			<td class="no_border"></td>
-			<td><%= @voucher.created_at.strftime("%D") %></td>
-			<td><%= @voucher.check_number %></td>
-			<td>$<%= @voucher.total_amount %></td>
-			<td class="no_border"></td>
-		</tr>
+				<tr>
+					<th class="no_border"></th>
+					<th>Date</th>
+					<th>Check Number</th>
+					<th>Amount</th>
+					<th class="no_border"></th>
+				</tr>
 
-	</table>
+				<tr>
+					<td class="no_border"></td>
+					<td><%= Date.today.strftime("%D") %></td>
+					<td><%= @voucher.check_number %></td>
+					<td>$<%= @voucher.total_amount %></td>
+					<td class="no_border"></td>
+				</tr>
+
+			</table>
+
+		</div>
 
 	</div>
+
+	<% @voucher.receipts.each do |r| %>
+
+	<div class="export_page">
+		<img class="receipt" src=<%= r.content.url %>>
+	</div>
+
+	<% end %>
+
+	<!--
+	<div id="export_receipts">
+		<img src="http://s3.amazonaws.com/adphi-dashboard/receipts/contents/000/000/151/original/2010-02-14-17.15.31.jpg?1461093513"/>
+	</div>
+	-->
 </div>

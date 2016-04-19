@@ -28,11 +28,20 @@
 }
 
 #vouchers_export {
-	div.stick_bottom {
-		position: fixed;
-		bottom: 0;
+	div.export_page {
+    	page-break-after: always;
+        page-break-inside: avoid;
+	}
 
-		page-break-after: always;
+	img.receipt {
+		height: 500px;
+		width: 500px;
+		margin: auto;
+	}
+
+	div.stick_bottom {
+		position: absolute;
+		bottom: 0;
 	}
 
 	table td{
