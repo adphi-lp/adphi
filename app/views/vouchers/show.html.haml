@@ -33,6 +33,22 @@
   = render 'receipts', voucher: @voucher
 
 %h4 State
+
+- if !@voucher.declined?
+  .row.collapse
+    .checkout-wrap.col-md-7.col-sm-12.col-xs-12
+      %ul.checkout-bar
+        %li{ class:[ ("active" if @voucher.state_index == 0), ("visited" if @voucher.state_index != 0)] }
+          %a{"data-toggle" => "tab", :href => "#"} Draft
+        %li{ class:[ ("active" if @voucher.state_index == 1), ("visited" if @voucher.state_index > 1)] }
+          %a{"data-toggle" => "tab", :href => "#"} Pending Officer Signatures
+        %li{ class:[ ("active" if @voucher.state_index == 2), ("visited" if @voucher.state_index > 2)] }
+          %a{"data-toggle" => "tab", :href => "#"} Pending President Signature
+        %li{ class:[ ("active" if @voucher.state_index == 3), ("visited" if @voucher.state_index > 3)] }
+          %a{"data-toggle" => "tab", :href => "#"} Pending Treasurer Signature
+        %li{ class:[ ("visited" if @voucher.state_index == 4)] }
+          %a{"data-toggle" => "tab", :href => "#"} Approved
+
 - if @voucher.draft?
   .row.collapse.inline-form
     .small-10.columns

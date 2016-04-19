@@ -47,6 +47,10 @@ class Voucher < ActiveRecord::Base
     end
   end
 
+  def state_index
+    Voucher.states[self.state]
+  end
+
   def total_amount
     line_items.select { |i| !i.new_record? }.to_a.sum(&:amount)
   end

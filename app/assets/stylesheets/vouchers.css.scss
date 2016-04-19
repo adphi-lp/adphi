@@ -3,6 +3,10 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #vouchers_show, #vouchers_edit, #vouchers_update {
+  div.checkout-wrap {
+    margin-bottom: 100px;
+  }
+
   #line_items {
     span.amount {
       float: right;
