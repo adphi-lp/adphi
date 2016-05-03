@@ -1,0 +1,16 @@
+%h2 Today's Late Dinners
+
+%p.entry
+  Today's late dinner requests
+  = LateDinner.closed? ? 'have already closed. ' : 'are still open. '
+
+%h3 One-time
+
+- LateDinner.where(date: Date.today).each do |ld|
+  %p.entry= "#{ld.brother.name} has requested one-time late dinner for today. "
+
+%h3 Every Week
+
+- Brother.all.each do |b|
+  - if b.late_dinner_days.try(:include?, Date.today.wday)
+    %p.entry= "#{b.name} has requested weekly late dinner. "

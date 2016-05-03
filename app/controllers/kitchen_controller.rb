@@ -36,6 +36,9 @@ class KitchenController < ApplicationController
   def late_dinner
   end
 
+  def current_late_dinners
+  end
+
   def toggle_weekly_late_dinner
     wday = params[:wday].to_i
 
