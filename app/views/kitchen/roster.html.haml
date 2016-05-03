@@ -1,0 +1,21 @@
+%h2 Kitchen Crew Roster
+
+- @crews.each do |wd, members|
+  %h3= Date::DAYNAMES[wd]
+  - if members.empty?
+    %p There are no people in this crew ):
+  - else
+    - members.each do |m|
+      - brother = Brother.find(m)
+      .row.collapse
+        .entry
+          = brother.name
+          = link_to 'Remove From This Crew', kitchen_roster_remove_path(brother.id), method: :post if can? :update_kitchen_roster, KeyValue
+  - if can? :update_kitchen_roster, KeyValue
+    = form_tag kitchen_roster_add_path(wd) do
+      = hidden_field_tag "wday", wd
+      .row.collapse
+        .small-10.columns
+          = select_tag "brother_id", options_from_collection_for_select(@unassigned_brothers, "id", "name")
+        .small-2.columns
+          = submit_tag "Add Brother", class: 'button postfix'

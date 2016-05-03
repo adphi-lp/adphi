@@ -1,6 +1,10 @@
 require 'resque/server'
 
 Rails.application.routes.draw do
+  get 'kitchen/roster', as: :kitchen_roster
+  post 'kitchen/remove/:brother_id', as: :kitchen_roster_remove, to: 'kitchen#remove'
+  post 'kitchen/add/:wday', as: :kitchen_roster_add, to: 'kitchen#add'
+
   get 'line_items/create'
 
   get 'line_items/destroy'

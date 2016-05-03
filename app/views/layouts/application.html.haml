@@ -43,6 +43,11 @@
                 %li= link_to 'My Vouchers', vouchers_path
                 - if current_brother.has_voucher_dashboard?
                   %li= link_to 'Officer View', dashboard_vouchers_path
+          - if can? :read_kitchen_roster, KeyValue
+            %li.has-dropdown
+              = link_to 'Kitchen', '#'
+              %ul.dropdown
+                %li= link_to 'Dinner Crew Roster', kitchen_roster_path
           %li
             %a{:href => help_path} Help
     .container
