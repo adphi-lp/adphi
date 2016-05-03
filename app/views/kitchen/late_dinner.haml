@@ -1,5 +1,20 @@
 %h2 Late Dinner
 
+%h3 One-time
+
+- already = current_brother.late_dinners.where(date: Date.today).any?
+
+- if already
+  %p.entry You have already requested one-time late dinner for today. 
+- else
+  - if LateDinner.closed?
+    %p.entry= "One-time late dinner entry for today has already closed. "
+  - else 
+    = link_to "Request Late Dinner for Today", kitchen_request_one_time_late_dinner_path, method: :post, class: 'button postfix'
+
+- current_brother.late_dinners.each do |ld|
+  %p.entry= "You have requested late dinner on " + ld.date.to_s(:short)
+
 %h3 Every Week
 
 - late_dinner_days = current_brother.late_dinner_days || []

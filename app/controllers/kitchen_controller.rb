@@ -54,6 +54,15 @@ class KitchenController < ApplicationController
     redirect_to kitchen_late_dinner_path, flash: {success: "You have successfully #{verb} late dinners for every #{Date::DAYNAMES[wday]}. "}
   end
 
+  def request_one_time_late_dinner
+    if LateDinner.closed? 
+      redirect_to kitchen_late_dinner_path, flash: {alert: "Late dinner requests for today have already closed. "}
+    else
+      current_brother.late_dinners.create(date: Date.today)
+      redirect_to kitchen_late_dinner_path, flash: {success: "You have successfully requested late dinner for today. "}
+    end
+  end
+
   private
     def dinner_crews
       KeyValue.get('dinner_crews', Hash[DINNER_WEEKDAYS.map { |wd| [wd, []] }])

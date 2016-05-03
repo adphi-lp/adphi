@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   post 'kitchen/remove/:brother_id', as: :kitchen_roster_remove, to: 'kitchen#remove'
   post 'kitchen/add/:wday', as: :kitchen_roster_add, to: 'kitchen#add'
   post 'kitchen/toggle_weekly_late_dinner/:wday', as: :kitchen_toggle_weekly_late_dinner, to: 'kitchen#toggle_weekly_late_dinner'
+  post 'kitchen/request_one_time_late_dinner', as: :kitchen_request_one_time_late_dinner, to: 'kitchen#request_one_time_late_dinner'
 
   get 'line_items/create'
 

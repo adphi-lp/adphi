@@ -11,6 +11,7 @@ class Brother < ActiveRecord::Base
   has_many :balances, dependent: :destroy
   has_many :vouchers, dependent: :destroy
   has_many :signatures, dependent: :destroy
+  has_many :late_dinners, dependent: :destroy
 
   validates :name, presence: true, length: {minimum: 1, maximum: 100}
   validates :kerberos, presence: true, length: {minimum: 1, maximum: 8}
