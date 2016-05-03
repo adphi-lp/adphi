@@ -1,0 +1,17 @@
+%h2 Late Dinner
+
+%h3 Every Week
+
+- late_dinner_days = current_brother.late_dinner_days || []
+- KitchenController::DINNER_WEEKDAYS.each do |wd|
+  - requested = late_dinner_days.include?(wd) 
+  - dayname = Date::DAYNAMES[wd]
+  %p.entry
+    Every
+    = dayname + ':'
+    = requested ? 'Requested' : 'Not Requested'
+    - if requested
+      = link_to 'Remove Request For Every ' + dayname, kitchen_toggle_weekly_late_dinner_path(wd), method: :post
+    - else
+      = link_to 'Request For Every ' + dayname, kitchen_toggle_weekly_late_dinner_path(wd), method: :post
+

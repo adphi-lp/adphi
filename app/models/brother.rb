@@ -19,6 +19,7 @@ class Brother < ActiveRecord::Base
   validates :current, :inclusion => {:in => [true, false]}
 
   serialize :positions
+  serialize :late_dinner_days
 
   # FIXME: This only returns one Brother in case of multiple occupants of the same office
   def self.officer(position)

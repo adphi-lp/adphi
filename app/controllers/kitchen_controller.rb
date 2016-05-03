@@ -33,6 +33,27 @@ class KitchenController < ApplicationController
     redirect_to kitchen_roster_path, flash: {success: "You have successfully added #{@brother.name} to the #{Date::DAYNAMES[wday]} dinner crew. "}
   end
 
+  def late_dinner
+  end
+
+  def toggle_weekly_late_dinner
+    wday = params[:wday].to_i
+
+    current_brother.late_dinner_days ||= []
+
+    if current_brother.late_dinner_days.include? wday
+      current_brother.late_dinner_days.delete(wday)
+      verb = 'requested'
+    else
+      current_brother.late_dinner_days << wday
+      verb = 'removed requests for'
+    end
+
+    current_brother.save!
+
+    redirect_to kitchen_late_dinner_path, flash: {success: "You have successfully #{verb} late dinners for every #{Date::DAYNAMES[wday]}. "}
+  end
+
   private
     def dinner_crews
       KeyValue.get('dinner_crews', Hash[DINNER_WEEKDAYS.map { |wd| [wd, []] }])
