@@ -7,10 +7,13 @@
 - if already
   %p.entry You have already requested one-time late dinner for today. 
 - else
-  - if LateDinner.closed?
-    %p.entry= "One-time late dinner entry for today has already closed. "
-  - else 
-    = link_to "Request Late Dinner for Today", kitchen_request_one_time_late_dinner_path, method: :post, class: 'button postfix'
+  - if LateDinner.has_dinner_today?
+    - if LateDinner.closed?
+      %p.entry= "One-time late dinner entry for today has already closed. "
+    - else 
+      = link_to "Request Late Dinner for Today", kitchen_request_one_time_late_dinner_path, method: :post, class: 'button postfix'
+  - else
+    %p.entry= "We don't have dinner tonight. "
 
 - current_brother.late_dinners.each do |ld|
   %p.entry= "You have requested late dinner on " + ld.date.to_s(:short)
