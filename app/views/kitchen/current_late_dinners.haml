@@ -6,11 +6,24 @@
 
 %h3 One-time
 
-- LateDinner.where(date: Time.zone.today).each do |ld|
-  %p.entry= "#{ld.brother.name} has requested one-time late dinner for today. "
+- dinners = LateDinner.where(date: Time.zone.today)
+
+- if dinners.empty? 
+  .entry
+    %p There are no one-time late dinners for today. 
+- else
+  - dinners.each do |ld|
+    .entry
+      %p
+        %span.keywords= ld.brother.name
+        has requested one-time late dinner for today.
 
 %h3 Every Week
 
 - Brother.all.each do |b|
   - if b.late_dinner_days.try(:include?, Time.zone.today.wday)
-    %p.entry= "#{b.name} has requested weekly late dinner. "
+    %div.entry 
+      %p
+        %span.keywords= b.name 
+        has requested weekly late dinner for
+        %span.keywords<= Date::DAYNAMES[Time.zone.today.wday]
