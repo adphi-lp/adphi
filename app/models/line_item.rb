@@ -31,6 +31,6 @@ class LineItem < ActiveRecord::Base
 
     def purchase_date_cannot_be_in_the_future
       errors.add(:purchase_date, "can't be in the future") if
-        !purchase_date.blank? and purchase_date > Date.today
+        !purchase_date.blank? and purchase_date > Time.zone.today
     end
 end

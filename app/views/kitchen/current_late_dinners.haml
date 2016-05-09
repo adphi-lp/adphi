@@ -6,11 +6,11 @@
 
 %h3 One-time
 
-- LateDinner.where(date: Date.today).each do |ld|
+- LateDinner.where(date: Time.zone.today).each do |ld|
   %p.entry= "#{ld.brother.name} has requested one-time late dinner for today. "
 
 %h3 Every Week
 
 - Brother.all.each do |b|
-  - if b.late_dinner_days.try(:include?, Date.today.wday)
+  - if b.late_dinner_days.try(:include?, Time.zone.today.wday)
     %p.entry= "#{b.name} has requested weekly late dinner. "

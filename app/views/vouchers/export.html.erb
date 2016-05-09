@@ -125,7 +125,7 @@
 
 				<tr>
 					<td class="no_border"></td>
-					<td><%= Date.today.strftime("%D") %></td>
+					<td><%= Time.zone.today.strftime("%D") %></td>
 					<td><%= @voucher.check_number %></td>
 					<td>$<%= @voucher.total_amount %></td>
 					<td class="no_border"></td>

@@ -61,7 +61,7 @@ class KitchenController < ApplicationController
     if LateDinner.closed? 
       redirect_to kitchen_late_dinner_path, flash: {alert: "Late dinner requests for today have already closed. "}
     else
-      current_brother.late_dinners.create(date: Date.today)
+      current_brother.late_dinners.create(date: Time.zone.today)
       redirect_to kitchen_late_dinner_path, flash: {success: "You have successfully requested late dinner for today. "}
     end
   end

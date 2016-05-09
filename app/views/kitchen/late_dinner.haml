@@ -2,7 +2,7 @@
 
 %h3 One-time
 
-- already = current_brother.late_dinners.where(date: Date.today).any?
+- already = current_brother.late_dinners.where(date: Time.zone.today).any?
 
 - if already
   %p.entry You have already requested one-time late dinner for today. 
