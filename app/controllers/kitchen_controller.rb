@@ -46,10 +46,10 @@ class KitchenController < ApplicationController
 
     if current_brother.late_dinner_days.include? wday
       current_brother.late_dinner_days.delete(wday)
-      verb = 'requested'
+      verb = 'removed requests for'
     else
       current_brother.late_dinner_days << wday
-      verb = 'removed requests for'
+      verb = 'requested'
     end
 
     current_brother.save!
