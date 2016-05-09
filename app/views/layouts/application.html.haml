@@ -43,6 +43,7 @@
                 %li= link_to 'My Vouchers', vouchers_path
                 - if current_brother.has_voucher_dashboard?
                   %li= link_to 'Officer View', dashboard_vouchers_path
+          - if false
             %li.has-dropdown
               = link_to 'Kitchen', '#'
               %ul.dropdown
