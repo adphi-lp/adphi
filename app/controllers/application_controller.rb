@@ -5,6 +5,11 @@ class ApplicationController < ActionController::Base
   before_action :store_location
   before_action :auto_sign_in
 
+  AUTO_SIGN_IN_EXCEPTIONS = [
+    /sessions#.*/, 
+    /kitchen#current_late_dinners/
+  ]
+
   private
 
     # Redirect logic
@@ -26,9 +31,7 @@ class ApplicationController < ActionController::Base
     end
 
     def auto_sign_in
-      if self.controller_name == 'sessions'
-        return
-      end
+      return if AUTO_SIGN_IN_EXCEPTIONS.any? { |r| r =~ "#{self.controller_name}##{self.action_name}" }
 
       unless signed_in? || flash[:sign_in_failed]
         redirect_to sign_in_path
