@@ -43,6 +43,7 @@ class KitchenController < ApplicationController
     wday = params[:wday].to_i
     brother_id = params[:brother_id]
     brother = brother_id.present? ? Brother.find(brother_id) : current_brother
+    reason = params[:reason]
 
     brother.late_dinner_days ||= []
 
@@ -52,6 +53,18 @@ class KitchenController < ApplicationController
     else
       brother.late_dinner_days << wday
       verb = 'requested'
+
+      dayname = Date::DAYNAMES[wday]
+
+      Brother.officer(:kitchen_manager).post_notification(
+        "#{brother.name} has requested weekly late dinners for every #{dayname}. ", 
+        [
+          "#{brother.name} has requested weekly late dinners for every #{dayname}. ", 
+          "The reason given is: #{reason}", 
+          "Use the link below to manage weekly late dinners. "
+        ].join("\n"), 
+        kitchen_weekly_late_dinners_path
+      )
     end
 
     brother.save!

@@ -4,9 +4,7 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <p>
-      <%= @content %>
-    </p>
+    <%= simple_format @content %>
     <a href="<%= @link %>"><%= @link %></a>
   </body>
 </html>

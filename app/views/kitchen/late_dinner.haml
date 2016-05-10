@@ -24,12 +24,16 @@
 - KitchenController::DINNER_WEEKDAYS.each do |wd|
   - requested = late_dinner_days.include?(wd) 
   - dayname = Date::DAYNAMES[wd]
-  %p.entry
-    Every
-    = dayname + ':'
-    = requested ? 'Requested' : 'Not Requested'
-    - if requested
-      = link_to 'Remove Request For Every ' + dayname, kitchen_toggle_weekly_late_dinner_path(wd), method: :post
-    - else
-      = link_to 'Request For Every ' + dayname, kitchen_toggle_weekly_late_dinner_path(wd), method: :post
-
+  %div.row.weekly_late_dinner
+    .small-4.columns
+      %p
+        Every
+        = dayname + ':'
+        = requested ? 'Requested' : 'Not Requested'
+    .small-8.columns
+      - if requested
+        = link_to 'Remove Request', kitchen_toggle_weekly_late_dinner_path(wd), method: :post, data: {confirm: "Do you really want to remove weekly late dinner request for #{dayname}?"}
+      - else
+        = form_tag kitchen_toggle_weekly_late_dinner_path(wd), class: 'reason_form', id: "reason_form_#{wd}" do
+          = link_to 'Request', "javascript: $('#reason_form_#{wd}').submit(); ", data: {confirm: "Do you really want to request late dinners for every #{dayname}?"}
+          = text_field_tag :reason, '', placeholder: "Provide a brief reason here plzzzzzzzz."
