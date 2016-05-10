@@ -1,0 +1,25 @@
+%h2 Weekly Late Dinners
+
+%p.notice Click on the 'requested' text to cancel a brother's weekly late dinner. 
+
+%table#weekly_late_dinners_table
+  %tr
+    %th Name
+    - KitchenController::DINNER_WEEKDAYS.each do |wday|
+      %th= Date::DAYNAMES[wday]
+  - totals = {}
+  - Brother.all.each do |b|
+    %tr
+      - late_dinner_days = b.late_dinner_days || []
+      %td= b.name
+      - KitchenController::DINNER_WEEKDAYS.each do |wday|
+        %td
+          - if late_dinner_days.include?(wday) 
+            - totals[wday] ||= 0
+            - totals[wday] += 1
+            = link_to 'Requested', kitchen_toggle_weekly_late_dinner_path(wday: wday, brother_id: b.id), method: :post, data: {confirm: "Do you really want to cancel #{b.name}'s late dinners for every #{Date::DAYNAMES[wday]}?"}
+
+  %tr
+    %td Total
+    - KitchenController::DINNER_WEEKDAYS.each do |wday|
+      %td= totals[wday] || 0

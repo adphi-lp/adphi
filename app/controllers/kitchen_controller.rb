@@ -41,20 +41,24 @@ class KitchenController < ApplicationController
 
   def toggle_weekly_late_dinner
     wday = params[:wday].to_i
+    brother_id = params[:brother_id]
+    brother = brother_id.present? ? Brother.find(brother_id) : current_brother
 
-    current_brother.late_dinner_days ||= []
+    brother.late_dinner_days ||= []
 
-    if current_brother.late_dinner_days.include? wday
-      current_brother.late_dinner_days.delete(wday)
+    if brother.late_dinner_days.include? wday
+      brother.late_dinner_days.delete(wday)
       verb = 'removed requests for'
     else
-      current_brother.late_dinner_days << wday
+      brother.late_dinner_days << wday
       verb = 'requested'
     end
 
-    current_brother.save!
+    brother.save!
 
-    redirect_to kitchen_late_dinner_path, flash: {success: "You have successfully #{verb} late dinners for every #{Date::DAYNAMES[wday]}. "}
+    suffix = (current_brother.id == brother.id ? '' : " for #{brother.name}")
+
+    redirect_to :back, flash: {success: "You have successfully #{verb} late dinners for every #{Date::DAYNAMES[wday]}#{suffix}. "}
   end
 
   def request_one_time_late_dinner
@@ -64,6 +68,10 @@ class KitchenController < ApplicationController
       current_brother.late_dinners.create(date: Time.zone.today)
       redirect_to kitchen_late_dinner_path, flash: {success: "You have successfully requested late dinner for today. "}
     end
+  end
+
+  def weekly_late_dinners
+    authorize! :manage_weekly_late_dinners, KeyValue
   end
 
   private

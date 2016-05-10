@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'kitchen/roster', as: :kitchen_roster
   get 'kitchen/late_dinner', as: :kitchen_late_dinner
   get 'kitchen/current_late_dinners', as: :kitchen_current_late_dinners
+  get 'kitchen/weekly_late_dinners', as: :kitchen_weekly_late_dinners
   post 'kitchen/remove/:brother_id', as: :kitchen_roster_remove, to: 'kitchen#remove'
   post 'kitchen/add/:wday', as: :kitchen_roster_add, to: 'kitchen#add'
   post 'kitchen/toggle_weekly_late_dinner/:wday', as: :kitchen_toggle_weekly_late_dinner, to: 'kitchen#toggle_weekly_late_dinner'

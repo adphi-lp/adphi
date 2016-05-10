@@ -47,8 +47,10 @@ class Ability
       can :publish, Voucher, brother_id: brother.id
       can :dashboard, Voucher if brother.has_voucher_dashboard?
 
+      # TODO we should not bind all permission to KeyValue
       can :read_kitchen_roster, KeyValue
       can :update_kitchen_roster, KeyValue if brother.has_position?(:kitchen_manager)
+      can :manage_weekly_late_dinners, KeyValue if brother.has_position?(:kitchen_manager)
 
       if brother.has_position?(:kitchen_manager)
         can :update, Balance, kind: "kitchen"
