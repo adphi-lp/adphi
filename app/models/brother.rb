@@ -22,6 +22,9 @@ class Brother < ActiveRecord::Base
   serialize :positions
   serialize :late_dinner_days
 
+  before_save :symbolise_positions
+  after_save :create_missing_balances
+
   # FIXME: This only returns one Brother in case of multiple occupants of the same office
   def self.officer(position)
     officer = self.all.detect { |b| b.has_position?(position) }
@@ -56,7 +59,6 @@ class Brother < ActiveRecord::Base
 
   # Create missing balances
 
-  after_save :create_missing_balances
   def create_missing_balances
     Balance.kinds.each do |k, v|
       Balance.create_with(value: 0).find_or_create_by(brother_id: id, kind: v)
@@ -78,4 +80,10 @@ class Brother < ActiveRecord::Base
       link
     ).deliver
   end
+
+  private
+
+    def symbolise_positions
+      self.positions = (positions.nil? ? [] : positions).map(&:to_sym)
+    end
 end
