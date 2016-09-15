@@ -118,6 +118,11 @@ class Voucher < ActiveRecord::Base
     end
   end
 
+  def regenerate_signatures!
+    signatures.destroy_all
+    create_signatures
+  end
+
   # STAGE 1: Publish Voucher
 
   def notification_subject_publish(brother)
@@ -144,7 +149,7 @@ class Voucher < ActiveRecord::Base
       positions.each do |p|
         signatures.create!(
           brother_id: Brother.officer(p).id,
-          category: :as_officer, 
+          category: :as_officer,
           position: p
         )
       end
@@ -152,14 +157,14 @@ class Voucher < ActiveRecord::Base
       # president signature
       signatures.create!(
         brother_id: Brother.officer(:president).id,
-        category: :as_president, 
+        category: :as_president,
         position: :president
       )
 
       # treasurer signature
       signatures.create!(
         brother_id: Brother.officer(:treasurer).id,
-        category: :as_treasurer, 
+        category: :as_treasurer,
         position: :treasurer
       )
 

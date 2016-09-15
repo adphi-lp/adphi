@@ -102,3 +102,7 @@
   .row.collapse.inline-form
     .small-12.columns
       %p This voucher has been approved.
+
+- if @voucher.pending_officer_signatures?
+  %h4 Actions
+  = link_to 'Regenerate Signatures (In Case of Officer Changes)', regenerate_signatures_voucher_path(@voucher), class: 'button', method: 'post', data: {confirm: 'This will start the signature process from scratch (i.e., you\'ll lose all current signed signatures). Are you sure? '}

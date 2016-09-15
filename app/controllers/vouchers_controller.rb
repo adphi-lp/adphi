@@ -64,9 +64,9 @@ class VouchersController < ApplicationController
     # Send an email to the brother who created the voucher
 
     # NotificationsMailer.notification_email(
-    #   @voucher.brother.email, 
-    #   @voucher.notification_subject_publish(current_brother), 
-    #   @voucher.notification_content_publish(current_brother), 
+    #   @voucher.brother.email,
+    #   @voucher.notification_subject_publish(current_brother),
+    #   @voucher.notification_content_publish(current_brother),
     #   url_for(@voucher)).deliver
 
     # For each officer in the voucher, send an email
@@ -74,9 +74,9 @@ class VouchersController < ApplicationController
     #   officer = sig.brother
 
     #   NotificationsMailer.notification_email(
-    #     officer.email, 
-    #     @voucher.notification_subject_publish(officer), 
-    #     @voucher.notification_content_publish(officer), 
+    #     officer.email,
+    #     @voucher.notification_subject_publish(officer),
+    #     @voucher.notification_content_publish(officer),
     #     url_for(@voucher)).deliver
     # end
 
@@ -106,10 +106,19 @@ class VouchersController < ApplicationController
     redirect_to voucher_path(@voucher), flash: {success: 'You\'ve approved this voucher. '}
   end
 
+  def regenerate_signatures
+    @voucher = Voucher.find(params[:id])
+
+    return redirect_to voucher_path(@voucher), flash: {alert: "You can only regenerate signatuers for vouchers that are currently pending officer signatures. "} unless @voucher.pending_officer_signatures?
+
+    @voucher.regenerate_signatures!
+    redirect_to voucher_path(@voucher), flash: {success: "You have successfully regenerated signatures for this voucher. "}
+  end
+
   # Make a printable page of the voucher...
   def export
     @voucher = Voucher.find(params[:id])
-    
+
     render 'export'
   end
 
