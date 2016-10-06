@@ -4,6 +4,41 @@ namespace :import do
     puts "Imported. "
   end
 
+  desc "Import new brothers each year. This is used in production. "
+  task :pledges, [:year] => [:environment] do |t, args|
+    lines = STDIN.read.lines
+
+    ActiveRecord::Base.transaction do
+      pc = PledgeClass.create!({
+        name: 'New Pledge Class',
+        year: args[:year].to_i
+      })
+
+      lines.each do |l|
+        name, year, _, kerberos = l.split(',')
+
+        name.strip!
+        kerberos.strip!
+        year = year.to_i
+
+        kerberos = kerberos[0...-8] if /@/ =~ kerberos
+
+        Brother.create!({
+          name: name,
+          year: year,
+          pledge_class_id: pc.id,
+          kerberos: kerberos,
+          positions: [],
+          late_dinner_days: []
+        })
+
+        puts "Created brother #{name}. "
+      end
+
+      puts "Imported #{lines.count} brothers into #{pc.name}."
+    end
+  end
+
   desc "Import some brother data for developing convenience. "
   task brothers: :environment do
     file = Rails.root.join("app/assets/brothers.csv")
@@ -34,7 +69,7 @@ namespace :import do
         name: name,
         year: year,
         pledge_class_id: ppc.id,
-        kerberos: k, 
+        kerberos: k,
         positions: positions
       })
 
