@@ -7,7 +7,7 @@ namespace :resque do
 
     Resque.schedule = {
       send_late_dinner_list: {
-        cron: "* 41 17 * * *",
+        cron: "* 40 16 * * *",
         class: "SendLateDinnerList",
         queue: "cron",
         args: nil,
