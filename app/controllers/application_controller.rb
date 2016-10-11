@@ -6,8 +6,9 @@ class ApplicationController < ActionController::Base
   before_action :auto_sign_in
 
   AUTO_SIGN_IN_EXCEPTIONS = [
-    /sessions#.*/, 
-    /kitchen#current_late_dinners/
+    /sessions#.*/,
+    /kitchen#current_late_dinners/,
+    /vouchers#export/
   ]
 
   private

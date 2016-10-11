@@ -29,3 +29,5 @@ public/system
 
 # added by GitSavvy
 /.gitignore
+
+/Makefile

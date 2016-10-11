@@ -119,7 +119,10 @@ class VouchersController < ApplicationController
   def export
     @voucher = Voucher.find(params[:id])
 
-    render 'export'
+    html = render_to_string(action: 'export', layout: false)
+    pdf = PDFKit.new(html)
+
+    send_data(pdf.to_pdf, type: 'application/pdf', filename: "voucher-#{@voucher.id}.pdf")
   end
 
   private
