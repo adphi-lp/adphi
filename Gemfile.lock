@@ -45,6 +45,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    combine_pdf (0.2.31)
+      ruby-rc4 (>= 0.1.5)
     concurrent-ruby (1.0.0)
     erubis (2.7.0)
     execjs (2.6.0)
@@ -161,6 +163,7 @@ GEM
       vegas (~> 0.1.2)
     resque_mailer (2.2.7)
       actionmailer (>= 3.0)
+    ruby-rc4 (0.1.5)
     ruby_parser (3.7.1)
       sexp_processor (~> 4.1)
     safe_yaml (1.0.4)
@@ -212,6 +215,7 @@ DEPENDENCIES
   aws-sdk-v1
   cancan
   coffee-rails (~> 4.0.0)
+  combine_pdf
   foundation-rails
   haml-rails (~> 0.9)
   jbuilder (~> 2.0)

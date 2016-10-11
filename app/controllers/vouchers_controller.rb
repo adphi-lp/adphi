@@ -120,9 +120,22 @@ class VouchersController < ApplicationController
     @voucher = Voucher.find(params[:id])
 
     html = render_to_string(action: 'export', layout: false)
-    pdf = PDFKit.new(html)
+    voucher_pdf = PDFKit.new(html)
 
-    send_data(pdf.to_pdf, type: 'application/pdf', filename: "voucher-#{@voucher.id}.pdf")
+    combined_pdf = CombinePDF.parse(voucher_pdf.to_pdf)
+
+    @voucher.receipts.each do |r|
+      if r.content.content_type =~ /pdf/
+        combined_pdf << CombinePDF.parse(Paperclip.io_adapters.for(r.content).read)
+      else
+        # It's image
+        image_url = request.base_url + r.content.url
+        image_pdf = PDFKit.new(render_to_string(action: 'export_image', layout: false, locals: {url: image_url}))
+        combined_pdf << CombinePDF.parse(image_pdf.to_pdf)
+      end
+    end
+
+    send_data(combined_pdf.to_pdf, type: 'application/pdf', filename: "voucher-#{@voucher.id}.pdf")
   end
 
   private

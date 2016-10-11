@@ -71,3 +71,4 @@ gem "haml-rails", "~> 0.9"
 gem 'postmark-rails'
 
 gem 'pdfkit'
+gem 'combine_pdf'
