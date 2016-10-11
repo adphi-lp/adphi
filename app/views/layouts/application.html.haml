@@ -46,7 +46,7 @@
             %li.has-dropdown
               = link_to 'Kitchen', '#'
               %ul.dropdown
-                %li= link_to 'Dinner Crew Roster', kitchen_roster_path if can? :read_kitchen_roster, KeyValue
+                %li= link_to 'Kitchen Crew Roster', kitchen_roster_path if can? :read_kitchen_roster, KeyValue
                 %li= link_to 'Late Dinner', kitchen_late_dinner_path
                 %li= link_to 'Today\'s Late Dinners', kitchen_current_late_dinners_path
                 %li= link_to 'Manage Weekly Late Dinners', kitchen_weekly_late_dinners_path if can? :manage_weekly_late_dinners, KeyValue

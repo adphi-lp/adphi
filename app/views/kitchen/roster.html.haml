@@ -1,7 +1,13 @@
 %h2 Kitchen Crew Roster
 
-- @crews.each do |wd, members|
-  %h3= Date::DAYNAMES[wd]
+- @crews.each do |crew, data|
+  %h3= KitchenController::KITCHEN_CREWS[crew]
+  - members = data[:members]
+  - captain = data[:captain]
+  - if captain.present?
+    / Make sure that the captain is always the first one listed.
+    - members.delete(captain)
+    - members = [captain] + members
   - if members.empty?
     %p There are no people in this crew ):
   - else
@@ -9,13 +15,19 @@
       - brother = Brother.find(m)
       .row.collapse
         .entry
-          = brother.name
+          = brother.name + (captain == m ? " (Captain)" : "")
           = link_to 'Remove From This Crew', kitchen_roster_remove_path(brother.id), method: :post if can? :update_kitchen_roster, KeyValue
   - if can? :update_kitchen_roster, KeyValue
-    = form_tag kitchen_roster_add_path(wd) do
-      = hidden_field_tag "wday", wd
+    = form_tag kitchen_roster_add_path(crew) do
+      = hidden_field_tag "wday", crew
       .row.collapse
-        .small-10.columns
+        .small-8.columns
           = select_tag "brother_id", options_from_collection_for_select(@unassigned_brothers, "id", "name")
-        .small-2.columns
-          = submit_tag "Add Brother", class: 'button postfix'
+        - if KitchenController::CREWS_WITH_CAPTAIN.include? crew
+          .small-2.columns
+            = submit_tag "Add", class: 'button postfix'
+          .small-2.columns
+            = submit_tag "Add as Captain", class: 'button postfix success'
+        - else
+          .small-4.columns
+            = submit_tag "Add", class: 'button postfix'
