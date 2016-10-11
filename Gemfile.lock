@@ -97,6 +97,7 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
+    pdfkit (0.8.2)
     pg (0.18.4)
     postmark (1.7.0)
       json
@@ -216,6 +217,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   paperclip
+  pdfkit
   pg
   postmark-rails
   rack-mini-profiler
