@@ -10,7 +10,7 @@ This is the internal web app used by Alpha Delta Phi - Lambda Phi chapter at MIT
 ## Repo Ground Rules
 
 1. Do NOT `git push --force` (at least not on branches that other people are also working on, including `master`). 
-2. Use feature branches for implementing features (naming convention `feature/awesome_feature`). Minor fixes can go into master directly. 
+2. Use feature branches for implementing features (naming convention `issue-xx`, where `xx` is the corresponding GitHub issue number). Minor fixes can go into master directly. 
 3. Submit Pull Requests for merging feature branches into `master`. Do NOT merge your own Pull Requests without other people reviewing the code first. 
 
 ## Dependencies
