@@ -69,10 +69,6 @@
         signed.
     - if sig.pending? && sig.brother == current_brother
       - if @voucher.pending_treasurer_signature?
-        = link_to 'Modify Voucher', edit_voucher_path(@voucher)
-        |
-        = link_to 'Export Voucher', export_voucher_path(@voucher), target: "_blank"
-
         = form_tag approve_voucher_path(@voucher), method: :post do
           .row.collapse.inline-form
             .small-12.colums
@@ -103,6 +99,11 @@
     .small-12.columns
       %p This voucher has been approved.
 
+%h4 Actions
 - if @voucher.pending_officer_signatures?
-  %h4 Actions
   = link_to 'Regenerate Signatures (In Case of Officer Changes)', regenerate_signatures_voucher_path(@voucher), class: 'button', method: 'post', data: {confirm: 'This will start the signature process from scratch (i.e., you\'ll lose all current signed signatures). Are you sure? '}
+
+- if current_brother == Brother.officer(:treasurer)
+  - if @voucher.pending_treasurer_signature?
+    = link_to 'Modify Voucher', edit_voucher_path(@voucher), class: 'buttom'
+  = link_to 'Export Voucher', export_voucher_path(@voucher), class: 'button', target: "_blank"
