@@ -29,9 +29,9 @@ class SendLateDinnerList
     @weeklys = Brother.all.select { |b| b.late_dinner_days.try(:include?, today) }.select { |b| !@one_times.include?(b) }
 
     message = "One-time late dinners for today:\n\n" +
-              @one_times.map(&:name).join("\n") + "\n" +
+              (@one_times.empty? ? 'None' : @one_times.map(&:name).join("\n")) + "\n\n" +
               "Weekly late dinners for today:\n\n" +
-              @weeklys.map(&:name).join("\n") + "\n" +
+              (@weeklys.empty? ? 'None' : @weeklys.map(&:name).join("\n")) + "\n\n" +
               "Total number: #{@one_times.size + @weeklys.size}"
 
     title = "Late dinners for today"
