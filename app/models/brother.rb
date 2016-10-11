@@ -71,7 +71,7 @@ class Brother < ActiveRecord::Base
   end
 
   # Post notification
-  def post_notification(title, content, link)
+  def post_notification(title, content, link = nil)
     # post email notification
     NotificationsMailer.notification_email(
       self.email,
