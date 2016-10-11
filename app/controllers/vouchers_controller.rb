@@ -129,7 +129,7 @@ class VouchersController < ApplicationController
         combined_pdf << CombinePDF.parse(Paperclip.io_adapters.for(r.content).read)
       else
         # It's image
-        image_url = request.base_url + r.content.url
+        image_url = r.content.url[0] == '/' ? request.base_url + r.content.url : r.content.url
         image_pdf = PDFKit.new(render_to_string(action: 'export_image', layout: false, locals: {url: image_url}))
         combined_pdf << CombinePDF.parse(image_pdf.to_pdf)
       end
