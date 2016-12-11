@@ -32,6 +32,7 @@
           <%= 'The voucher is pending treasurer signature. ' if v.pending_treasurer_signature? %>
         </p>
       <% end %>
+      <%= link_to 'Remove this voucher', voucher_path(v), method: :delete, class: 'action', data: {confirm: "Are you sure that you want to delete the voucher titled \"#{v.title}\"? "} if v.draft? %>
     </div>
   </div>
 <% end %>

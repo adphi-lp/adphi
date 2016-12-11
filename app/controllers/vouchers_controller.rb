@@ -138,6 +138,16 @@ class VouchersController < ApplicationController
     send_data(combined_pdf.to_pdf, type: 'application/pdf', filename: "voucher-#{@voucher.id}.pdf")
   end
 
+  def destroy
+    @voucher = Voucher.find(params[:id])
+
+    return redirect_to voucher_path(@voucher), flash: {alert: "You can only delete vouchers that have not been submitted yet. "} unless @voucher.draft?
+
+    @voucher.destroy!
+
+    redirect_to vouchers_path, flash: {success: "You have successfully deleted the voucher titled \"#{@voucher.title}\". "}
+  end
+
   private
     def voucher_params
       params.require(:voucher).permit(:title, :owner_id, line_items_attributes: [:id, :title, :amount, :purchase_date, :budget_type])

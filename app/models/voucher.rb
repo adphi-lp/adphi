@@ -6,8 +6,8 @@ class Voucher < ActiveRecord::Base
 
   belongs_to :brother, class_name: "Brother"
 
-  has_many :line_items
-  has_many :receipts
+  has_many :line_items, dependent: :destroy
+  has_many :receipts, dependent: :destroy
 
   has_many :signatures, as: :signable
 

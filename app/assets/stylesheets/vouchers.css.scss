@@ -40,3 +40,14 @@
     margin: 5px 0;
   }
 }
+
+#vouchers_index {
+  .entry a.action {
+    display: none;
+  }
+
+  .entry:hover a.action {
+    display: inline;
+    padding-left: 20px;
+  }
+}

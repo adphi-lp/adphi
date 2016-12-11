@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   resources :balances, only: [:update] do
   end
 
-  resources :vouchers, only: [:index, :show, :new, :create, :edit, :update] do
+  resources :vouchers, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
     resources :line_items, only: [:destroy, :create]
     resources :receipts, only: [:destroy, :create]
 

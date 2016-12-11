@@ -45,6 +45,7 @@ class Ability
       can :edit, Voucher if brother.has_position?(:treasurer)
       can :update, Voucher if brother.has_position?(:treasurer)
       can :publish, Voucher, brother_id: brother.id
+      can :destroy, Voucher, brother_id: brother.id
       can :dashboard, Voucher if brother.has_voucher_dashboard?
       can :regenerate_signatures, Voucher, brother_id: brother.id
 
