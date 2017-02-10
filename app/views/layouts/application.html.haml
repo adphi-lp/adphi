@@ -34,8 +34,10 @@
             %li
               %a{:href => meetings_path} Meetings
           - if can? :read, Brother
-            %li
+            %li.has-dropdown
               %a{:href => brothers_path} Brothers
+              %ul.dropdown
+                %li= link_to 'Officers', officers_brothers_path
           - if can? :read, Voucher
             %li.has-dropdown
               = link_to 'Vouchers', '#'

@@ -31,7 +31,9 @@ class Ability
 
     unless brother.nil?
       can :read, Brother
+      can :officers, Brother
       can :test_email, Brother
+      can :appoint, Brother if brother.admin?
 
       can :read, Meeting
       can :create, Meeting

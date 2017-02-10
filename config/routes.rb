@@ -32,6 +32,11 @@ Rails.application.routes.draw do
     member do
       get 'test_email'
     end
+
+    collection do
+      get 'officers'
+      post 'appoint'
+    end
   end
 
   resources :meetings, only: [:index, :show, :create, :destroy] do

@@ -2,6 +2,7 @@ class Brother < ActiveRecord::Base
   include PositionConstants
 
   scope :current, -> { where(current: true) }
+  default_scope -> { order('name ASC') }
 
   belongs_to :pledge_class
 
