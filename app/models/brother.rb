@@ -38,7 +38,7 @@ class Brother < ActiveRecord::Base
   end
 
   def has_voucher_dashboard?
-    (Signature::POSITIONS_WITH_BUDGET + [:president, :treasurer]).detect { |p| has_position?(p) }.present?
+    (Signature::POSITIONS_WITH_BUDGET + [:president_current, :president_fall, :president_spring, :treasurer]).detect { |p| has_position?(p) }.present?
   end
 
   # Fetch balances

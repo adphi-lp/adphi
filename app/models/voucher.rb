@@ -156,9 +156,9 @@ class Voucher < ActiveRecord::Base
 
       # president signature
       signatures.create!(
-        brother_id: Brother.officer(:president).id,
+        brother_id: Brother.officer(:president_current).id,
         category: :as_president,
-        position: :president
+        position: :president_current
       )
 
       # treasurer signature

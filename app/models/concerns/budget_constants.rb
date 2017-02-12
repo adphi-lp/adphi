@@ -52,7 +52,7 @@ module BudgetConstants
     4420 => :secretary,
     4450 => :treasurer,
     4460 => :treasurer,
-    4490 => :president,
+    4490 => :president_current,
     4530 => :treasurer,
     4540 => :community_relations_chairman,
     4550 => :literary_chairman,
