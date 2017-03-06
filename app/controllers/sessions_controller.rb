@@ -17,13 +17,13 @@ class SessionsController < ApplicationController
       client_id: ENV['OPENID_CLIENT_ID'],
       response_type: 'code',
       scope: 'openid email profile',
-      redirect_uri: oauth2_callback_url,
+      redirect_uri: openid_callback_url,
       state: session[:state],
       nonce: session[:nonce]
     }.to_query
   end
 
-  def oauth2_callback
+  def openid_callback
     return redirect_to root_path, flash: {error: 'No auth code received. ', sign_in_failed: true} unless params[:code].present?
     return redirect_to root_path, flash: {error: 'Session state mismatch. ', sign_in_failed: true} unless params[:state] == session[:state]
 
@@ -34,7 +34,7 @@ class SessionsController < ApplicationController
       client_secret: ENV['OPENID_CLIENT_SECRET'],
       grant_type: 'authorization_code',
       code: code,
-      redirect_uri: oauth2_callback_url
+      redirect_uri: openid_callback_url
     }
     result = Net::HTTP.post_form(URI.parse('https://oidc.mit.edu/token'), post_params)
     token = JSON.parse(result.body)
@@ -87,7 +87,7 @@ class SessionsController < ApplicationController
       OpenIDConnect::Client.new(
         identifier: ENV['OPENID_CLIENT_ID'],
         secret: ENV['OPENID_CLIENT_SECRET'],
-        redirect_uri: oauth2_callback_url,
+        redirect_uri: openid_callback_url,
         host: 'oidc.mit.edu',
         authorization_endpoint: '/oauth/authorize',
         token_endpoint: '/oauth/tokens',
