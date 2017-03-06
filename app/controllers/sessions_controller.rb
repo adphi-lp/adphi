@@ -25,7 +25,6 @@ class SessionsController < ApplicationController
 
   def openid_callback
     return redirect_to root_path, flash: {error: 'No auth code received. ', sign_in_failed: true} unless params[:code].present?
-    return redirect_to root_path, flash: {error: 'Session state mismatch. ', sign_in_failed: true} unless params[:state] == session[:state]
 
     # Retrieving access token
     code = params[:code]
