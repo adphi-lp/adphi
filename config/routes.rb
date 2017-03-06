@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get 'sessions/destroy', as: :sign_out
   get 'sessions/authenticate'
   get 'sessions/fail'
+  get 'sessions/oauth2_callback', as: :oauth2_callback
 
   resources :brothers, only: [:index, :show] do
     member do
