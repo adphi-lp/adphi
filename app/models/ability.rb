@@ -53,10 +53,10 @@ class Ability
 
       # TODO we should not bind all permission to KeyValue
       can :read_kitchen_roster, KeyValue
-      can :update_kitchen_roster, KeyValue if brother.has_position?(:kitchen_manager)
-      can :manage_weekly_late_dinners, KeyValue if brother.has_position?(:kitchen_manager)
+      can :update_kitchen_roster, KeyValue if brother.has_position?(:kitchen_manager_current)
+      can :manage_weekly_late_dinners, KeyValue if brother.has_position?(:kitchen_manager_current)
 
-      if brother.has_position?(:kitchen_manager)
+      if brother.has_position?(:kitchen_manager_current)
         can :update, Balance, kind: "kitchen"
       end
 
