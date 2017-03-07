@@ -14,7 +14,7 @@ class KitchenController < ApplicationController
     friday_cleanup:     'Friday Cleanup',
   }
 
-  CREWS_WITH_CAPTAIN = [:sunday_supersquad, :sunday_dinner, :monday_dinner, :tuesday_dinner, :wednesday_dinner, :thursday_dinner]
+  CREWS_WITH_CAPTAIN = [:sunday_supersquad, :sunday_dinner, :monday_dinner, :tuesday_dinner, :wednesday_dinner, :thursday_dinner, :friday_cleanup]
 
   def roster
     @crews = kitchen_crews
