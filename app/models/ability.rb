@@ -60,7 +60,7 @@ class Ability
         can :update, Balance, kind: "kitchen"
       end
 
-      if brother.has_position?(:house_manager) || brother.has_position?(:house_job_checker)
+      if brother.has_position?(:house_manager_current) || brother.has_position?(:house_job_checker)
         can :update, Balance, kind: "house"
         can :update, Balance, kind: "house_debt"
       end

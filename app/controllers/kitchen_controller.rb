@@ -74,7 +74,7 @@ class KitchenController < ApplicationController
 
       dayname = Date::DAYNAMES[wday]
 
-      Brother.officer(:kitchen_manager).post_notification(
+      Brother.officer(:kitchen_manager_current).post_notification(
         "#{brother.name} has requested weekly late dinners for every #{dayname}. ",
         [
           "#{brother.name} has requested weekly late dinners for every #{dayname}. ",
