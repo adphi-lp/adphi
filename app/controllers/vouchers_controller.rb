@@ -59,28 +59,11 @@ class VouchersController < ApplicationController
   def publish
     @voucher = Voucher.find(params[:id])
 
-    @voucher.publish!
-
-    # Send an email to the brother who created the voucher
-
-    # NotificationsMailer.notification_email(
-    #   @voucher.brother.email,
-    #   @voucher.notification_subject_publish(current_brother),
-    #   @voucher.notification_content_publish(current_brother),
-    #   url_for(@voucher)).deliver
-
-    # For each officer in the voucher, send an email
-    # @voucher.current_signatures.each do |sig|
-    #   officer = sig.brother
-
-    #   NotificationsMailer.notification_email(
-    #     officer.email,
-    #     @voucher.notification_subject_publish(officer),
-    #     @voucher.notification_content_publish(officer),
-    #     url_for(@voucher)).deliver
-    # end
-
-    redirect_to voucher_path(@voucher), success: 'You have submitted this voucher. It can no longer be modified. '
+    if @voucher.publish!
+      redirect_to voucher_path(@voucher), success: 'You have submitted this voucher. It can no longer be modified. '
+    else
+      redirect_to voucher_path(@voucher), alert: (["Can't create voucher: "] + @voucher.errors.full_messages).join("\n")
+    end
   end
 
   def dashboard

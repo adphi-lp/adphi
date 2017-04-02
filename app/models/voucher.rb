@@ -12,6 +12,7 @@ class Voucher < ActiveRecord::Base
   has_many :signatures, as: :signable
 
   validates :title, presence: true, length: {minimum: 5, maximum: 100}
+  validate :must_not_be_empty_to_publish
 
   accepts_nested_attributes_for :line_items
 
@@ -180,6 +181,13 @@ class Voucher < ActiveRecord::Base
     # all required signatures are signed
     def can_promote?
       current_signatures.all?(&:signed?)
+    end
+
+    def must_not_be_empty_to_publish
+      return if self.draft?
+
+      errors[:base] << "Voucher must have at least 1 item. " if self.line_items.empty?
+      errors[:base] << "Voucher must have at least 1 receipt. " if self.receipts.empty?
     end
 
 end
