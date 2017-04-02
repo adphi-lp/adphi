@@ -23,12 +23,12 @@
 
 %h4 Receipts
 - if @voucher.draft?
-  = form_for [@voucher, @receipt], remote: true, authenticity_token: true, builder: ApplicationHelper::ExtendedFormBuilder, html: {multipart: true} do |f|
+  = form_for [@voucher, @receipt], remote: true, authenticity_token: true, builder: ApplicationHelper::ExtendedFormBuilder, html: {multipart: true, data: {auto_submit: true}} do |f|
     .row.collapse
       .small-10.columns
-        = f.embedded_file_field :content, placeholder: 'File to attach to this voucher. '
+        = f.embedded_file_field :content, placeholder: 'Select file to attach to this voucher. '
       .small-2.columns
-        = f.button "Attach Receipt", class: 'button postfix', data: {disable_with: 'Uploading...'}
+        = f.button "Select on the Left", class: 'button postfix', data: {disable_with: 'Uploading...'}
 #receipts
   = render 'receipts', voucher: @voucher
 
