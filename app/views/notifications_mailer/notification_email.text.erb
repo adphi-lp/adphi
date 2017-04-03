@@ -1,3 +1,5 @@
 <%= @content %>
 
-<%= @link %>
+<% if @link.present? %>
+  <%= @link %>
+<% end %>

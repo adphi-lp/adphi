@@ -5,13 +5,14 @@
 - already = current_brother.late_dinners.where(date: Time.zone.today).any?
 
 - if already
-  %p.entry You have already requested one-time late dinner for today. 
+  %p.entry You have already requested one-time late dinner for today.
 - else
   - if LateDinner.has_dinner_today?
     - if LateDinner.closed?
       %p.entry= "One-time late dinner entry for today has already closed. "
-    - else 
+    - else
       = link_to "Request Late Dinner for Today", kitchen_request_one_time_late_dinner_path, method: :post, class: 'button postfix'
+      %p.entry= "You have about #{hours_and_minutes_in_words(LateDinner.time_until_close)} until the request closes for today. "
   - else
     %p.entry= "We don't have dinner tonight. "
 
@@ -22,7 +23,7 @@
 
 - late_dinner_days = current_brother.late_dinner_days || []
 - KitchenController::DINNER_WEEKDAYS.each do |wd|
-  - requested = late_dinner_days.include?(wd) 
+  - requested = late_dinner_days.include?(wd)
   - dayname = Date::DAYNAMES[wd]
   %div.row.weekly_late_dinner
     .small-4.columns

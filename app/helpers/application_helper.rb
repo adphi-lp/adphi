@@ -3,6 +3,13 @@ module ApplicationHelper
     str.split("\n").join("<br/>").html_safe
   end
 
+  def hours_and_minutes_in_words(seconds)
+    hours = (seconds / 3600).to_i
+    minutes = ((seconds - hours * 3600) / 60).to_i
+
+    "#{pluralize(hours, 'hour')} and #{pluralize(minutes, 'minute')}"
+  end
+
   class ExtendedFormBuilder < ActionView::Helpers::FormBuilder
     include ActionView::Helpers::FormTagHelper
 

@@ -20,6 +20,7 @@ gem 'rails_serve_static_assets'
 gem 'remotipart'
 gem 'resque'
 gem 'resque_mailer'
+gem 'resque-scheduler'
 gem 'sass-rails', '~> 5.0.1'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development

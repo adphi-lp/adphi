@@ -5,6 +5,8 @@
   </head>
   <body>
     <%= simple_format @content %>
-    <a href="<%= @link %>"><%= @link %></a>
+    <% if @link.present? %>
+      <a href="<%= @link %>"><%= @link %></a>
+    <% end %>
   </body>
 </html>

@@ -1,16 +1,16 @@
 %h2 Today's Late Dinners
 
 %p.entry
-  Today's late dinner requests
-  = LateDinner.closed? ? 'have already closed. ' : 'are still open. '
+  Today's late dinner request
+  = LateDinner.closed? ? 'has already closed. ' : "is still open for another #{hours_and_minutes_in_words(LateDinner.time_until_close)}. "
 
 %h3 One-time
 
 - dinners = LateDinner.where(date: Time.zone.today)
 
-- if dinners.empty? 
+- if dinners.empty?
   .entry
-    %p There are no one-time late dinners for today. 
+    %p There are no one-time late dinners for today.
 - else
   - dinners.each do |ld|
     .entry
@@ -22,8 +22,8 @@
 
 - Brother.all.each do |b|
   - if b.late_dinner_days.try(:include?, Time.zone.today.wday)
-    %div.entry 
+    %div.entry
       %p
-        %span.keywords= b.name 
+        %span.keywords= b.name
         has requested weekly late dinner for
         %span.keywords<= Date::DAYNAMES[Time.zone.today.wday]
