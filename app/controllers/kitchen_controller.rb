@@ -81,7 +81,7 @@ class KitchenController < ApplicationController
           "The reason given is: #{reason}",
           "Use the link below to manage weekly late dinners. "
         ].join("\n"),
-        kitchen_weekly_late_dinners_path
+        kitchen_weekly_late_dinners_url
       )
     end
 
