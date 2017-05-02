@@ -1,6 +1,6 @@
 <div class="row headerblock">
   <div class="small-12 columns">
-    <h2>Brother <%= @brother.name %></h2>
+    <h2>Brother <%= @brother.display_name %></h2>
     <h3>Pledge Class <%= @brother.pledge_class.name %>, ΛΦ '<%= two_digit_year(@brother) %><%= ", " + @brother.positions.map { |p| Brother::POSITION_NAMES[p] }.join(", ") unless @brother.positions.empty? %>
     </h3>
   </div>
@@ -32,6 +32,6 @@
 
 <div id="actions">
   <% if @brother == current_brother %>
-    <p><%= link_to "Click here", controller: "brothers", action: "test_email", id: @brother %> to send a test email to yourself at <%= mail_to @brother.email %>, to verify that that email notifications from the dashboard can reach you successfully. </p> 
+    <p><%= link_to "Click here", controller: "brothers", action: "test_email", id: @brother %> to send a test email to yourself at <%= mail_to @brother.email %>, to verify that that email notifications from the dashboard can reach you successfully. </p>
   <% end %>
 </div>

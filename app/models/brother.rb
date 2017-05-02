@@ -26,6 +26,10 @@ class Brother < ActiveRecord::Base
   before_save :symbolise_positions
   after_save :create_missing_balances
 
+  def display_name
+    "#{self.name} (#{self.pledge_class.name})"
+  end
+
   # FIXME: This only returns one Brother in case of multiple occupants of the same office
   def self.officer(position)
     officer = self.all.detect { |b| b.has_position?(position) }

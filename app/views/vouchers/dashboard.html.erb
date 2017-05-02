@@ -20,7 +20,7 @@
       <% for v in @vouchers %>
       <tr>
         <td><%= link_to v.title, v %></td>
-        <td><%= v.brother.name %></td>
+        <td><%= v.brother.display_name %></td>
         <td><%= v.created_at.to_date.to_s %></td>
         <td><%= 'Yes' if (v.current_signatures.map(&:brother_id).include? current_brother.id) %></td>
         <td><%= v.total_amount %></td>

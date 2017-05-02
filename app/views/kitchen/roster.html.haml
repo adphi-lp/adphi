@@ -15,14 +15,14 @@
       - brother = Brother.find(m)
       .row.collapse
         .entry
-          = brother.name + (captain == m ? " (Captain)" : "")
+          = brother.display_name + (captain == m ? " (Captain)" : "")
           = link_to 'Remove From This Crew', kitchen_roster_remove_path(brother.id), method: :post if can? :update_kitchen_roster, KeyValue
   - if can? :update_kitchen_roster, KeyValue
     = form_tag kitchen_roster_add_path(crew) do
       = hidden_field_tag "wday", crew
       .row.collapse
         .small-8.columns
-          = select_tag "brother_id", options_from_collection_for_select(@unassigned_brothers, "id", "name")
+          = select_tag "brother_id", options_from_collection_for_select(@unassigned_brothers, "id", "display_name")
         - if KitchenController::CREWS_WITH_CAPTAIN.include? crew
           .small-2.columns
             = submit_tag "Add", class: 'button postfix'

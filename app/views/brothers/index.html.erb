@@ -9,6 +9,7 @@
       <div class="row">
         <div class="small-12 column">
           <a href="<%= brother_path(b) %>">
+            <!-- Here we do NOT use b.display_name because, uh, we're already showing the pledge class names.  -->
             <p>Brother <span class="keywords"><%= b.name %></span>, ΛΦ '<%= two_digit_year b %><%= ", " + b.positions.map { |p| Brother::POSITION_NAMES[p] }.join(", ") unless b.positions.empty? %></p>
             <p>Present at <span class="keywords"><%= @presences[b.id] || 0 %></span> meetings.</p>
             <p>

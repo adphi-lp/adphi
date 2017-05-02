@@ -1,4 +1,4 @@
-<span><%= brother.name %></span>
+<span><%= brother.display_name %></span>
 
 <%= link_to 'P', record_meeting_path(brother_id: brother, status: :present), remote: true, method: :post, class: "button tiny " + (attendence.nil? ? 'secondary' : (attendence.present? ? 'success' : 'transparent')) %>
 <%= link_to 'L', record_meeting_path(brother_id: brother, status: :tardy), remote: true, method: :post, class: "button tiny " + (attendence.nil? ? 'secondary' : (attendence.tardy? ? 'alert' : 'transparent')) %>

@@ -29,6 +29,7 @@
           - if signed_in?
             %li
               %a{:href => "#{brother_path(current_brother)}"}
+                / Here we do NOT use current_brother.display_name because, uh, the current brother himself should know who he is.
                 Welcome, Brother #{current_brother.name}!
           - if can? :read, Meeting
             %li

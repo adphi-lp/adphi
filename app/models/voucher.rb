@@ -111,7 +111,7 @@ class Voucher < ActiveRecord::Base
       # send an email to the officers whose signatures are currently required
       current_signatures.each do |sig|
         sig.brother.post_notification(
-          "Signature request for voucher \"#{self.title}\" from #{self.brother.name}.  ",
+          "Signature request for voucher \"#{self.title}\" from #{self.brother.display_name}.  ",
           "Please use the included link to view the request and approve/decline. ",
           url_for(self)
         )
@@ -130,7 +130,7 @@ class Voucher < ActiveRecord::Base
     if (brother == self.brother)
       return "[Voucher] You Just Created a Voucher"
     else
-      return "[Voucher] Voucher request from: " + self.brother.name
+      return "[Voucher] Voucher request from: " + self.brother.display_name
     end
   end
 

@@ -31,7 +31,7 @@ class Signature < ActiveRecord::Base
   end
 
   def shortlog_signable_description
-    "#{signable.brother.name}'s voucher titled [[#{signable.title}]]" if signable.is_a? Voucher
+    "#{signable.brother.display_name}'s voucher titled [[#{signable.title}]]" if signable.is_a? Voucher
   end
 
   private

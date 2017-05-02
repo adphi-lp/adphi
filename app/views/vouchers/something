@@ -1,7 +1,7 @@
 <div class="row headerblock">
   <div class="small-12 columns">
     <h2><%= @voucher.title %></h2>
-    <h3>Submitted by <%= link_to @voucher.brother.name, @voucher.brother %> on <%= friendly_date @voucher.created_at %></h3>
+    <h3>Submitted by <%= link_to @voucher.brother.display_name, @voucher.brother %> on <%= friendly_date @voucher.created_at %></h3>
   </div>
 </div>
 
@@ -81,7 +81,7 @@
           <%= hidden_field_tag :signature_id, sig.id %>
           <div class="small-4 columns">
             <p>
-              <%= sig.brother.name %>
+              <%= sig.brother.display_name %>
               <%= sig.pending? ? 'has not' : 'has' %>
               signed.
             </p>
@@ -100,7 +100,7 @@
           </div>
         <% else %>
           <div class="small-8 columns">
-            <%= sig.brother.name %>
+            <%= sig.brother.display_name %>
             <%= sig.pending? ? 'has not' : 'has' %>
             signed.
           </div>

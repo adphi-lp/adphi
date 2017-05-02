@@ -19,7 +19,7 @@
 
         <tr>
             <td><%= @voucher.signatures.first.created_at.to_date.to_s(:long) %></td>
-            <td><%= @voucher.brother.name %></td>
+            <td><%= @voucher.brother.display_name %></td>
         </tr>
     </table>
 
@@ -64,8 +64,8 @@
             <tr>
                 <!-- TODO: this is not good practice -->
                 <td><%= s.category.to_s.split("_")[-1].capitalize %></td>
-                <td><%= s.brother.name %></td>
-                <td><%= s.signed? ? s.brother.name : '' %></td>
+                <td><%= s.brother.display_name %></td>
+                <td><%= s.signed? ? s.brother.display_name : '' %></td>
                 <td><%= s.signed? ? s.updated_at.to_date.to_s(:long) : '' %></td>
             </tr>
         <% end %>

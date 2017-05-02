@@ -33,7 +33,7 @@ class KitchenController < ApplicationController
 
     save_kitchen_crews(@crews)
 
-    redirect_to kitchen_roster_path, flash: {success: "You have successfully removed #{@brother.name} from his kitchen crew. "}
+    redirect_to kitchen_roster_path, flash: {success: "You have successfully removed #{@brother.display_name} from his kitchen crew. "}
   end
 
   def add
@@ -48,7 +48,7 @@ class KitchenController < ApplicationController
 
     save_kitchen_crews(@crews)
 
-    redirect_to kitchen_roster_path, flash: {success: "You have successfully added #{@brother.name} to the #{KITCHEN_CREWS[crew]} dinner crew. " + (captain ? "He is also made the captain. " : "")}
+    redirect_to kitchen_roster_path, flash: {success: "You have successfully added #{@brother.display_name} to the #{KITCHEN_CREWS[crew]} dinner crew. " + (captain ? "He is also made the captain. " : "")}
   end
 
   def late_dinner
@@ -75,9 +75,9 @@ class KitchenController < ApplicationController
       dayname = Date::DAYNAMES[wday]
 
       Brother.officer(:kitchen_manager_current).post_notification(
-        "#{brother.name} has requested weekly late dinners for every #{dayname}. ",
+        "#{brother.display_name} has requested weekly late dinners for every #{dayname}. ",
         [
-          "#{brother.name} has requested weekly late dinners for every #{dayname}. ",
+          "#{brother.display_name} has requested weekly late dinners for every #{dayname}. ",
           "The reason given is: #{reason}",
           "Use the link below to manage weekly late dinners. "
         ].join("\n"),
@@ -87,7 +87,7 @@ class KitchenController < ApplicationController
 
     brother.save!
 
-    suffix = (current_brother.id == brother.id ? '' : " for #{brother.name}")
+    suffix = (current_brother.id == brother.id ? '' : " for #{brother.display_name}")
 
     redirect_to :back, flash: {success: "You have successfully #{verb} late dinners for every #{Date::DAYNAMES[wday]}#{suffix}. "}
   end

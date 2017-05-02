@@ -21,17 +21,17 @@ class Shortlog < ActiveRecord::Base
         creator = Brother.find(content[:creator_id])
         meeting = Meeting.find(content[:meeting_id])
         status = content[:status]
-        entry[:description] = "[[#{creator.name}]] changed his attendence of [[#{meeting.name}]] on [[#{ApplicationController.helpers.friendly_date(meeting.created_at)}]] at [[#{ApplicationController.helpers.friendly_time(meeting.created_at)}]] to [[#{status.to_s.capitalize}]]"
+        entry[:description] = "[[#{creator.display_name}]] changed his attendence of [[#{meeting.name}]] on [[#{ApplicationController.helpers.friendly_date(meeting.created_at)}]] at [[#{ApplicationController.helpers.friendly_time(meeting.created_at)}]] to [[#{status.to_s.capitalize}]]"
       when :balance
         creator = Brother.find(content[:creator_id])
         balance_title = "#{content[:kind].to_s.split('_').map(&:capitalize).join(' ')} Job Balance"
-        entry[:description] = "[[#{creator.name}]] changed his [[#{balance_title}]] by [[#{content[:change]}]] for [[#{content[:message]}]]"
+        entry[:description] = "[[#{creator.display_name}]] changed his [[#{balance_title}]] by [[#{content[:change]}]] for [[#{content[:message]}]]"
       when :create_voucher
         voucher = Voucher.find(content[:voucher_id])
-        entry[:description] = "[[#{brother.name}]] submitted a voucher titled [[#{voucher.title}]]"
+        entry[:description] = "[[#{brother.display_name}]] submitted a voucher titled [[#{voucher.title}]]"
       when :signature
         sig = Signature.find(content[:signature_id])
-        entry[:description] = "[[#{brother.name}]] [[#{content[:action].to_s == 'decline' ? 'declined' : 'signed'}]] #{sig.shortlog_signable_description}"
+        entry[:description] = "[[#{brother.display_name}]] [[#{content[:action].to_s == 'decline' ? 'declined' : 'signed'}]] #{sig.shortlog_signable_description}"
       end
 
       entry

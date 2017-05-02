@@ -11,13 +11,13 @@
       %td= PositionConstants::POSITION_NAMES[k]
       %td
         - if v.present?
-          = link_to v.name, brother_path(v)
+          = link_to v.display_name, brother_path(v)
       - if can? :appoint, Brother
         %td
           = form_tag appoint_brothers_path(v) do
             = hidden_field_tag "position", k
             .row.collapse
               .small-8.columns
-                = select_tag "brother_id", options_for_select([["-", 0]]) + options_from_collection_for_select(Brother.all, :id, :name)
+                = select_tag "brother_id", options_for_select([["-", 0]]) + options_from_collection_for_select(Brother.all, :id, :display_name)
               .small-4.columns
                 = submit_tag "Appoint", class: 'button postfix'

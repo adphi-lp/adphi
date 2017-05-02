@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       return redirect_to root_path, flash: {error: 'Cannot find brother with kerberos ' + params[:as]} if brother.nil?
 
       sign_in brother
-      return redirect_back root_path, flash: {success: "Welcome, Brother #{brother.name}. "}
+      return redirect_back root_path, flash: {success: "Welcome, Brother #{brother.display_name}. "}
     end
 
     redirect_to 'https://oidc.mit.edu/authorize?' + {
@@ -58,7 +58,7 @@ class SessionsController < ApplicationController
     return redirect_to root_path, flash: {error: 'Cannot find brother with kerberos ' + params[:as] + '. '} if brother.nil?
 
     sign_in brother
-    return redirect_back root_path, flash: {success: "Welcome, Brother #{brother.name}. "}
+    return redirect_back root_path, flash: {success: "Welcome, Brother #{brother.display_name}. "}
   end
 
   def fail

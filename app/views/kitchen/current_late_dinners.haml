@@ -15,7 +15,7 @@
   - dinners.each do |ld|
     .entry
       %p
-        %span.keywords= ld.brother.name
+        %span.keywords= ld.brother.display_name
         has requested one-time late dinner for today.
 
 %h3 Every Week
@@ -24,6 +24,6 @@
   - if b.late_dinner_days.try(:include?, Time.zone.today.wday)
     %div.entry
       %p
-        %span.keywords= b.name
+        %span.keywords= b.display_name
         has requested weekly late dinner for
         %span.keywords<= Date::DAYNAMES[Time.zone.today.wday]

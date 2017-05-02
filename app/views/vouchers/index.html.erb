@@ -22,7 +22,7 @@
     <div class="small-12 columns">
       <%= link_to v do %>
         <p><%= v.title %></p>
-        <p>Created by <span class="keywords"><%= v.brother.name %></span> on <span class="keywords"><%= friendly_date(v.created_at) %></span></p>
+        <p>Created by <span class="keywords"><%= v.brother.display_name %></span> on <span class="keywords"><%= friendly_date(v.created_at) %></span></p>
         <p>
           <%= 'The voucher has not yet been submitted' if v.draft? %>
           <%= 'The voucher has been approved. ' if v.approved? %>
